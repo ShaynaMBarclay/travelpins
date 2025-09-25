@@ -1,0 +1,81 @@
+/* Overall page layout */
+.country-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Georgia', serif;
+  color: #333;
+  margin: 50px auto;
+}
+
+/* Book container */
+.book {
+  display: flex;
+  width: 900px;
+  height: 500px;
+  background: #fdf6e3;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid #d4b483;
+}
+
+/* Pages */
+.page {
+  flex: 1;
+  padding: 30px;
+  background: repeating-linear-gradient(
+    to bottom,
+    #fdf6e3,
+    #fdf6e3 29px,
+    #ccc 30px
+  ); /* notebook lines */
+  overflow-y: auto;
+}
+
+/* Spine */
+.spine {
+  width: 20px;
+  background: #d4b483;
+}
+
+/* Chapter buttons on left page */
+.chapter-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.chapter-list button {
+  padding: 10px 15px;
+  border-radius: 8px;
+  border: 2px solid #d4b483;
+  background: #ffefc5;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.2s ease;
+}
+
+.chapter-list button:hover {
+  background: #ffe49b;
+}
+
+/* Content page styling */
+.content-page {
+  padding: 20px;
+}
+
+.item-card {
+  background: #fff8e7;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.item-card img {
+  max-width: 100%;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
