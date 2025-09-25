@@ -1,9 +1,11 @@
-import React from 'react'
+import Globe from "./Globe";
 
-const App = () => {
+function App() {
   return (
-    <div>App</div>
-  )
+    <div style={{ width: "100vw", height: "100vh", background: "#000" }}>
+      <Globe />
+    </div>
+  );
 }
 
-export default App
+export default App;
