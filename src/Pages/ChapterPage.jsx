@@ -20,20 +20,16 @@ function ChapterPage() {
 
   const countryName = story.name;
 
-  // Find the nested block that matches the chapterSlug
-  const chapterBlock = story.content?.body?.find(
-    (block) => block.component.toLowerCase() === chapterSlug.toLowerCase()
-  );
+  // Get all blocks that match the chapterSlug (case-insensitive)
+  const chapterBlocks =
+    story.content?.body?.filter(
+      (block) => block.component.toLowerCase() === chapterSlug.toLowerCase()
+    ) || [];
 
-  console.log("Chapter block:", chapterBlock);
+  console.log("Chapter blocks:", chapterBlocks);
 
-  // Use items if present, otherwise treat the block itself as the entry
-  const entries =
-    chapterBlock?.items?.length > 0
-      ? chapterBlock.items
-      : chapterBlock
-      ? [chapterBlock]
-      : [];
+  // Flatten all items from the blocks into a single array
+  const entries = chapterBlocks.flatMap((block) => block.items || []);
 
   return (
     <div className="country-page chapter-page">
@@ -48,23 +44,22 @@ function ChapterPage() {
 
         {/* Right page: chapter content */}
         <div className="page">
-          <h2>{chapterSlug.charAt(0).toUpperCase() + chapterSlug.slice(1)}</h2>
+          <h2>
+            {chapterSlug.charAt(0).toUpperCase() + chapterSlug.slice(1)}
+          </h2>
 
           {entries.length > 0 ? (
             entries.map((entry) => {
-              // Handle single image or array of images
               let imageUrl = null;
-              let imageAlt = entry.title;
+              let imageAlt = entry.title || "";
 
               if (entry.image) {
                 if (Array.isArray(entry.image) && entry.image.length > 0) {
-                  imageUrl = entry.image[0].filename;
+                  imageUrl = entry.image[0].filename || entry.image[0].url;
                   imageAlt = entry.image[0].alt || entry.title;
                 } else if (entry.image.filename) {
-                  imageUrl = entry.image.filename;
+                  imageUrl = entry.image.filename || entry.image.url;
                   imageAlt = entry.image.alt || entry.title;
-                } else {
-                  imageUrl = entry.image;
                 }
               }
 
