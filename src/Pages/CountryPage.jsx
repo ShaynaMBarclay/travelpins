@@ -34,15 +34,16 @@ function CountryPage() {
 
       <h1>{countryName}</h1>
 
-      <div className="book">
+      <div data-tour="country-book" className="book">
         {/* Left page with chapter buttons */}
         <div className="page">
           <h2>Chapters</h2>
-          <div className="chapter-list">
+          <div className="chapter-list" >
             {chapters.map((chapter) => (
               <Link
                 key={chapter.slug}
                 to={`/country/${countrySlug}/${chapter.slug}`}
+                data-tour={chapter.slug === "food" ? "chapter-food" : undefined}
               >
                 <button>{chapter.name}</button>
               </Link>

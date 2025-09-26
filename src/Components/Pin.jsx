@@ -84,7 +84,7 @@ function Pin({ earthRef, lat, lng, name, onClick }) {
   };
 
   return (
-    <group className="pin"> 
+    <group>
       {/* Stem */}
       <mesh
         ref={stemRef}

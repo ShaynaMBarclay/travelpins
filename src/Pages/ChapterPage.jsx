@@ -87,7 +87,7 @@ function ChapterPage() {
     <div className="country-page chapter-page">
       <h1>{countryName}</h1>
 
-      <div className="book">
+      <div data-tour="chapter-book" className="book">
         {/* Left page */}
         <div className="page">
           <h2>{chapterSlug.charAt(0).toUpperCase() + chapterSlug.slice(1)}</h2>
