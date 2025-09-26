@@ -113,9 +113,19 @@ function ChapterPage() {
         </button>
       </div>
 
-      <div style={{ marginTop: "20px" }}>
-        <Link to={`/country/${countrySlug}`}>← Back to {countryName}</Link>
-      </div>
+      <div
+  style={{
+    marginTop: "20px",
+    display: "flex",
+    gap: "20px",
+    justifyContent: "center",
+  }}
+>
+  {/* Back to country page */}
+  <Link to={`/country/${countrySlug}`} className="navigation-link">
+    ← Back to {countryName}
+  </Link>
+</div>
     </div>
   );
 }
