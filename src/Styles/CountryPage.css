@@ -1,96 +1,47 @@
 /* Overall page layout */
-.country-page {
+.country-page,
+.chapter-page {
   display: flex;
   flex-direction: column;
   align-items: center;
   font-family: 'Georgia', serif;
   color: #333;
   margin: 50px auto;
-  padding: 0 20px; 
+  padding: 0 20px;
+}
+
+/* Wrapper for the main book */
+.book-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  height: 550px;
 }
 
 /* Book container */
 .book {
   display: flex;
   width: 100%;
-  max-width: 1200px; 
-  height: 550px; 
+  height: 100%;
   background: #fdf6e3;
   box-shadow: 0 10px 30px rgba(0,0,0,0.2);
   border-radius: 10px;
   overflow: hidden;
   border: 1px solid #d4b483;
+  transform-style: preserve-3d;
 }
 
 /* Pages */
 .page {
   flex: 1;
-  padding: 25px; 
+  padding: 25px;
   background: repeating-linear-gradient(
     to bottom,
     #fdf6e3,
     #fdf6e3 29px,
     #ccc 30px
-  ); /* notebook lines */
+  );
   overflow-y: auto;
-}
-
-/* Spine */
-.spine {
-  width: 20px;
-  background: #d4b483;
-}
-
-/* Chapter buttons on left page */
-.chapter-list {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.chapter-list button {
-  padding: 10px 15px;
-  border-radius: 8px;
-  border: 2px solid #d4b483;
-  background: #ffefc5;
-  cursor: pointer;
-  font-weight: bold;
-  transition: all 0.2s ease;
-}
-
-.chapter-list button:hover {
-  background: #ffe49b;
-}
-
-/* Content page styling */
-.content-page {
-  padding: 20px;
-}
-
-/* Item card styling */
-.item-card {
-  background: #fff8e7;
-  padding: 10px; 
-  border-radius: 8px;
-  margin-bottom: 15px; 
-  text-align: center;
-  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
-}
-
-.item-card h3 {
-  font-size: 16px; 
-  margin-bottom: 8px;
-}
-
-.item-card p {
-  font-size: 14px; 
-}
-
-/* Images in item card */
-.item-card img {
-  max-width: 50%;
-  border-radius: 8px;
-  margin-bottom: 8px;
 }
 
 /* Custom scrollbar */
@@ -113,6 +64,113 @@
   background: #b88850;
 }
 
+/* Spine */
+.spine {
+  width: 20px;
+  background: #d4b483;
+}
+
+/* Chapter list */
+.chapter-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.chapter-list button {
+  padding: 10px 15px;
+  border-radius: 8px;
+  border: 2px solid #d4b483;
+  background: #ffefc5;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.2s ease;
+}
+
+.chapter-list button:hover {
+  background: #ffe49b;
+}
+
+/* Item card styling */
+.item-card {
+  background: #fff8e7;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  text-align: center;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+}
+
+.item-card h3 {
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.item-card p {
+  font-size: 14px;
+}
+
+/* Images in item card */
+.item-card img {
+  max-width: 50%;
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+
+/* Book navigation below the book */
+.book-navigation {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.book-navigation button {
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: 2px solid #d4b483;
+  background: #ffefc5;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.book-navigation button:hover:not(:disabled) {
+  background: #ffe49b;
+}
+
+.book-navigation button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+/* Fade-in animation for content */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInAnim 0.5s forwards;
+}
+
+@keyframes fadeInAnim {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Images fade-in */
+.hidden-image {
+  opacity: 0;
+  transition: opacity 0.6s ease-in-out;
+}
+
+.fade-in-image {
+  opacity: 1;
+  transition: opacity 0.6s ease-in-out;
+}
+
+/* Navigation link */
 .navigation-link {
   padding: 8px 15px;
   background: #ffefc5;
@@ -128,25 +186,13 @@
   background: #ffe49b;
 }
 
-
-/* Responsive scaling for smaller desktops */
-@media (max-width: 1280px) {
-  .book {
-    max-width: 1000px;
-    height: 500px;
-  }
+/* Responsive scaling */
+@media (max-width: 1280px) { 
+  .book { max-width: 1000px; height: 500px; } 
 }
-
-@media (max-width: 1024px) {
-  .book {
-    max-width: 900px;
-    height: 450px;
-  }
+@media (max-width: 1024px) { 
+  .book { max-width: 900px; height: 450px; } 
 }
-
-@media (max-width: 768px) {
-  .book {
-    flex-direction: column; /* temporary stack for smaller screens */
-    height: auto;
-  }
+@media (max-width: 768px) { 
+  .book { flex-direction: column; height: auto; } 
 }

@@ -4,10 +4,14 @@ import storyblok from "../Components/storyblok";
 import { db, storage } from "../firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import BookAnimationOverlay from "../Components/BookAnimationOverlay";
 
 function CountryPage() {
   const { countrySlug } = useParams();
   const [story, setStory] = useState(null);
+
+  // Show overlay until animation is done
+  const [overlayVisible, setOverlayVisible] = useState(true);
 
   // Form state
   const [chapter, setChapter] = useState("views");
@@ -66,7 +70,6 @@ function CountryPage() {
 
   return (
     <div className="country-page">
-      {/* Back to Globe */}
       <div style={{ marginBottom: "20px" }}>
         <Link to="/" className="navigation-link">
           🌐 Back to Globe
@@ -75,71 +78,89 @@ function CountryPage() {
 
       <h1>{countryName}</h1>
 
-      <div className="book">
-        {/* Left page with chapter buttons */}
-        <div className="page left-page">
-          <h2>Chapters</h2>
-          <div className="chapter-list">
-            {chapters.map((chapterBtn) => (
-              <Link
-                key={chapterBtn.slug}
-                to={`/country/${countrySlug}/${chapterBtn.slug}`}
+      <div className="book-wrapper">
+        {overlayVisible && (
+          <BookAnimationOverlay
+            title={countryName}
+            onFinish={() => setOverlayVisible(false)}
+          />
+        )}
+
+        {/* Actual book is hidden until overlay finishes */}
+        {!overlayVisible && (
+          <div className="book">
+            <div className="page left-page">
+              <h2>Chapters</h2>
+              <div className="chapter-list">
+                {chapters.map((chapterBtn) => (
+                  <Link
+                    key={chapterBtn.slug}
+                    to={`/country/${countrySlug}/${chapterBtn.slug}`}
+                  >
+                    <button>{chapterBtn.name}</button>
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            <div className="spine"></div>
+
+            <div
+              className="page right-page fade-in"
+              style={{ animationDelay: "0.3s" }}
+            >
+              <h2>Submit Your Entry</h2>
+              <form
+                onSubmit={handleSubmit}
+                className="submission-form book-style"
               >
-                <button>{chapterBtn.name}</button>
-              </Link>
-            ))}
+                <label>
+                  Chapter:
+                  <select
+                    value={chapter}
+                    onChange={(e) => setChapter(e.target.value)}
+                  >
+                    <option value="views">Views</option>
+                    <option value="food">Food</option>
+                    <option value="activities">Activities</option>
+                  </select>
+                </label>
+
+                <label>
+                  Title:
+                  <input
+                    type="text"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                    required
+                  />
+                </label>
+
+                <label>
+                  Description:
+                  <textarea
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                    required
+                  />
+                </label>
+
+                <label>
+                  Image:
+                  <input
+                    type="file"
+                    onChange={(e) => setFile(e.target.files[0])}
+                    accept="image/*"
+                  />
+                </label>
+
+                <button type="submit">Submit</button>
+
+                {submitted && <p className="success-message">Submission sent!</p>}
+              </form>
+            </div>
           </div>
-        </div>
-
-        {/* Spine */}
-        <div className="spine"></div>
-
-        {/* Right page: submission form */}
-        <div className="page right-page fade-in" style={{ animationDelay: "0.3s" }}>
-          <h2>Submit Your Entry</h2>
-          <form onSubmit={handleSubmit} className="submission-form book-style">
-            <label>
-              Chapter:
-              <select value={chapter} onChange={(e) => setChapter(e.target.value)}>
-                <option value="views">Views</option>
-                <option value="food">Food</option>
-                <option value="activities">Activities</option>
-              </select>
-            </label>
-
-            <label>
-              Title:
-              <input
-                type="text"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                required
-              />
-            </label>
-
-            <label>
-              Description:
-              <textarea
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                required
-              />
-            </label>
-
-            <label>
-              Image:
-              <input
-                type="file"
-                onChange={(e) => setFile(e.target.files[0])}
-                accept="image/*"
-              />
-            </label>
-
-            <button type="submit">Submit</button>
-
-            {submitted && <p className="success-message">Submission sent!</p>}
-          </form>
-        </div>
+        )}
       </div>
     </div>
   );

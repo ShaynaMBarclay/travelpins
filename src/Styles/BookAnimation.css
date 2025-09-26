@@ -1,0 +1,59 @@
+/* Closed book overlay */
+.book-closed-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 600px;
+  height: 550px;
+  transform: translate(-50%, -50%);
+  perspective: 1500px;
+  z-index: 20;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.book-closed-spine {
+  width: 40px;
+  height: 100%;
+  background: linear-gradient(180deg, #3b2418, #5a3825);
+  border-right: 2px solid #d4b483;
+  border-radius: 6px 0 0 6px;
+  box-shadow: inset -4px 0 6px rgba(0,0,0,0.5);
+  flex-shrink: 0;
+}
+
+.book-closed-front {
+  width: 560px;
+  height: 100%;
+  background: linear-gradient(135deg, #5a3825, #3b2418);
+  border-radius: 0 10px 10px 0;
+  border: 2px solid #d4b483;
+  box-shadow: 6px 8px 18px rgba(0,0,0,0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform-origin: left center;
+  animation: closedBookFadeIn 0.8s forwards;
+  color: #fdf6e3;
+  font-family: 'Georgia', serif;
+  font-size: 2.5rem;
+  text-align: center;
+  text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
+}
+
+/* Closed book fade-in */
+@keyframes closedBookFadeIn {
+  from { opacity: 0; transform: rotateY(-10deg); }
+  to   { opacity: 1; transform: rotateY(0deg); }
+}
+
+/* Opening animation */
+.book-closed-overlay.opening .book-closed-front {
+  animation: openBook 1s forwards;
+}
+
+@keyframes openBook {
+  from { transform: rotateY(0deg); }
+  to   { transform: rotateY(-90deg); opacity: 0; }
+}
