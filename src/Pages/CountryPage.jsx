@@ -1,10 +1,20 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import storyblok from "../Components/storyblok";
+import { db, storage } from "../firebase";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 function CountryPage() {
   const { countrySlug } = useParams();
   const [story, setStory] = useState(null);
+
+  // Form state
+  const [chapter, setChapter] = useState("views");
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [file, setFile] = useState(null);
+  const [submitted, setSubmitted] = useState(false);
 
   useEffect(() => {
     storyblok
@@ -23,9 +33,40 @@ function CountryPage() {
     { name: "Activities", slug: "activities" },
   ];
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    let imageUrl = "";
+    if (file) {
+      const storageRef = ref(
+        storage,
+        `submissions/${countrySlug}/${chapter}/${file.name}`
+      );
+      await uploadBytes(storageRef, file);
+      imageUrl = await getDownloadURL(storageRef);
+    }
+
+    await addDoc(collection(db, "submissions"), {
+      country: countrySlug,
+      chapter,
+      title,
+      description,
+      image: imageUrl,
+      timestamp: serverTimestamp(),
+    });
+
+    setSubmitted(true);
+    setChapter("views");
+    setTitle("");
+    setDescription("");
+    setFile(null);
+
+    setTimeout(() => setSubmitted(false), 3000);
+  };
+
   return (
     <div className="country-page">
-      {/* Link back to the main Globe page */}
+      {/* Back to Globe */}
       <div style={{ marginBottom: "20px" }}>
         <Link to="/" className="navigation-link">
           🌐 Back to Globe
@@ -36,15 +77,15 @@ function CountryPage() {
 
       <div className="book">
         {/* Left page with chapter buttons */}
-        <div className="page">
+        <div className="page left-page">
           <h2>Chapters</h2>
           <div className="chapter-list">
-            {chapters.map((chapter) => (
+            {chapters.map((chapterBtn) => (
               <Link
-                key={chapter.slug}
-                to={`/country/${countrySlug}/${chapter.slug}`}
+                key={chapterBtn.slug}
+                to={`/country/${countrySlug}/${chapterBtn.slug}`}
               >
-                <button>{chapter.name}</button>
+                <button>{chapterBtn.name}</button>
               </Link>
             ))}
           </div>
@@ -53,9 +94,51 @@ function CountryPage() {
         {/* Spine */}
         <div className="spine"></div>
 
-        {/* Right page preview */}
-        <div className="page">
-          <p>Click a chapter on the left to read more.</p>
+        {/* Right page: submission form */}
+        <div className="page right-page fade-in" style={{ animationDelay: "0.3s" }}>
+          <h2>Submit Your Entry</h2>
+          <form onSubmit={handleSubmit} className="submission-form book-style">
+            <label>
+              Chapter:
+              <select value={chapter} onChange={(e) => setChapter(e.target.value)}>
+                <option value="views">Views</option>
+                <option value="food">Food</option>
+                <option value="activities">Activities</option>
+              </select>
+            </label>
+
+            <label>
+              Title:
+              <input
+                type="text"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                required
+              />
+            </label>
+
+            <label>
+              Description:
+              <textarea
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                required
+              />
+            </label>
+
+            <label>
+              Image:
+              <input
+                type="file"
+                onChange={(e) => setFile(e.target.files[0])}
+                accept="image/*"
+              />
+            </label>
+
+            <button type="submit">Submit</button>
+
+            {submitted && <p className="success-message">Submission sent!</p>}
+          </form>
         </div>
       </div>
     </div>
