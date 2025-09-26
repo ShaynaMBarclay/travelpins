@@ -7,32 +7,36 @@ function ChapterPage() {
   const [story, setStory] = useState(null);
 
   useEffect(() => {
-    storyblok
-      .get(`cdn/stories/${countrySlug}`, { version: "draft" })
-      .then((res) => setStory(res.data.story))
-      .catch(console.error);
-  }, [countrySlug]);
+  storyblok
+    .get(`cdn/stories/${countrySlug}`, { version: "published" })
+    .then((res) => {
+      console.log("Full Storyblok response:", res); 
+      setStory(res.data.story);
+    })
+    .catch(console.error);
+}, [countrySlug]);
 
   if (!story) return <p>Loading...</p>;
 
   const countryName = story.name;
 
-  // Get the content for the selected chapter
-  const selectedChapter = story.content.chapters?.find(
-    (c) => c.slug === chapterSlug
+   console.log("Story content body:", story.content?.body);
+
+  // Find the nested block that matches the chapterSlug
+  const chapterBlock = story.content?.body?.find(
+    (block) => block.component.toLowerCase() === chapterSlug.toLowerCase()
   );
 
-  const entries = selectedChapter?.entries || [];
+  console.log("Chapter block:", chapterBlock);
 
+  // Get the entries inside that block
+  const entries = chapterBlock?.items || []; // Make sure "items" is the field name in Storyblok
   return (
     <div className="country-page chapter-page">
       <h1>{countryName}</h1>
 
       <div className="book">
-        {/* Left page: blank or spine-only */}
-        <div className="page">
-          {/* Optionally: you can show chapter title or a small note */}
-        </div>
+        <div className="page"></div>
 
         {/* Spine */}
         <div className="spine"></div>
@@ -40,10 +44,11 @@ function ChapterPage() {
         {/* Right page: chapter content */}
         <div className="page">
           <h2>{chapterSlug.charAt(0).toUpperCase() + chapterSlug.slice(1)}</h2>
+
           {entries.length > 0 ? (
             entries.map((entry) => (
               <div key={entry._uid} className="item-card">
-                {entry.image && <img src={entry.image} alt={entry.title} />}
+                {entry.image && <img src={entry.image.filename} alt={entry.title} />}
                 <h3>{entry.title}</h3>
                 <p>{entry.description}</p>
               </div>
