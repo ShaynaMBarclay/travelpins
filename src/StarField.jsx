@@ -32,7 +32,7 @@ function StarField({ count = 3000, radius = 250 }) {
     }
 
     if (pointsRef.current) {
-      pointsRef.current.rotation.y += 0.0008;
+      pointsRef.current.rotation.y += 0.0010;
     }
   });
 
