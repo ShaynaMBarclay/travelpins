@@ -17,7 +17,6 @@ function CountryPage() {
 
   const countryName = story.name;
 
-  // Hardcode the buttons so they always show
   const chapters = [
     { name: "Views", slug: "views" },
     { name: "Food", slug: "food" },
@@ -25,8 +24,15 @@ function CountryPage() {
   ];
 
   return (
-      <div className="country-page">
-            <h1>{countryName}</h1>
+    <div className="country-page">
+      {/* Link back to the main Globe page */}
+      <div style={{ marginBottom: "20px" }}>
+        <Link to="/" className="navigation-link">
+          🌐 Back to Globe
+        </Link>
+      </div>
+
+      <h1>{countryName}</h1>
 
       <div className="book">
         {/* Left page with chapter buttons */}

@@ -5,7 +5,10 @@ import storyblok from "../Components/storyblok";
 function ChapterPage() {
   const { countrySlug, chapterSlug } = useParams();
   const [story, setStory] = useState(null);
-  const [currentPage, setCurrentPage] = useState(0); // will increment by 2 for left/right pages
+  const [currentPage, setCurrentPage] = useState(0);
+
+  // Track which images are loaded for the current page
+  const [imagesLoaded, setImagesLoaded] = useState({}); // key = entry._uid
 
   useEffect(() => {
     storyblok
@@ -14,29 +17,62 @@ function ChapterPage() {
       .catch(console.error);
   }, [countrySlug]);
 
+  // Reset loaded images when switching pages
+  useEffect(() => {
+    setImagesLoaded({});
+  }, [currentPage]);
+
   if (!story) return <p>Loading...</p>;
 
   const countryName = story.name;
 
-  // Filter blocks that match the chapterSlug
   const chapterBlocks =
     story.content?.body?.filter(
       (block) => block.component.toLowerCase() === chapterSlug.toLowerCase()
     ) || [];
 
-  // Flatten all items
   const entries = chapterBlocks.flatMap((block) => block.items || []);
-
-  const totalPages = Math.ceil(entries.length / 2); // 2 entries per spread
+  const totalPages = Math.ceil(entries.length / 2);
 
   const leftEntry = entries[currentPage * 2];
   const rightEntry = entries[currentPage * 2 + 1];
 
   const getImageUrl = (entry) => {
     if (!entry || !entry.image) return null;
-    if (Array.isArray(entry.image) && entry.image.length > 0) return entry.image[0].filename || entry.image[0].url;
+    if (Array.isArray(entry.image) && entry.image.length > 0)
+      return entry.image[0].filename || entry.image[0].url;
     if (entry.image.filename) return entry.image.filename || entry.image.url;
     return entry.image;
+  };
+
+  const handleImageLoad = (uid) => {
+    setImagesLoaded((prev) => ({ ...prev, [uid]: true }));
+  };
+
+  const renderEntry = (entry, index) => {
+    if (!entry) return null;
+    const imageUrl = getImageUrl(entry);
+    const imageAlt = entry.title || "";
+    const isLoaded = imagesLoaded[entry._uid];
+
+    return (
+      <div
+        key={`${entry._uid}-${currentPage}`} // force re-animation on page change
+        className="item-card fade-in"
+        style={{ animationDelay: `${index * 0.2}s` }}
+      >
+        {imageUrl && (
+          <img
+            src={imageUrl}
+            alt={imageAlt}
+            className={isLoaded ? "fade-in-image" : "hidden-image"}
+            onLoad={() => handleImageLoad(entry._uid)}
+          />
+        )}
+        <h3>{entry.title}</h3>
+        <p>{entry.description}</p>
+      </div>
+    );
   };
 
   const nextPage = () => {
@@ -47,19 +83,6 @@ function ChapterPage() {
     if (currentPage > 0) setCurrentPage(currentPage - 1);
   };
 
-  const renderEntry = (entry) => {
-    if (!entry) return null;
-    const imageUrl = getImageUrl(entry);
-    const imageAlt = entry.title || "";
-    return (
-      <div className="item-card">
-        {imageUrl && <img src={imageUrl} alt={imageAlt} />}
-        <h3>{entry.title}</h3>
-        <p>{entry.description}</p>
-      </div>
-    );
-  };
-
   return (
     <div className="country-page chapter-page">
       <h1>{countryName}</h1>
@@ -68,19 +91,16 @@ function ChapterPage() {
         {/* Left page */}
         <div className="page">
           <h2>{chapterSlug.charAt(0).toUpperCase() + chapterSlug.slice(1)}</h2>
-          {renderEntry(leftEntry)}
+          {renderEntry(leftEntry, 0)}
         </div>
 
         {/* Spine */}
         <div className="spine"></div>
 
         {/* Right page */}
-        <div className="page">
-          {renderEntry(rightEntry)}
-        </div>
+        <div className="page">{renderEntry(rightEntry, 1)}</div>
       </div>
 
-      {/* Navigation arrows below the book */}
       <div className="book-navigation">
         <button onClick={prevPage} disabled={currentPage === 0}>
           ← Previous

@@ -113,6 +113,22 @@
   background: #b88850;
 }
 
+.navigation-link {
+  padding: 8px 15px;
+  background: #ffefc5;
+  border: 2px solid #d4b483;
+  border-radius: 8px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #333;
+  transition: all 0.2s ease;
+}
+
+.navigation-link:hover {
+  background: #ffe49b;
+}
+
+
 /* Responsive scaling for smaller desktops */
 @media (max-width: 1280px) {
   .book {
