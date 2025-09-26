@@ -132,17 +132,18 @@ function CountryPage() {
                   />
                 </label>
 
-                <label>
-                  Image:
+                {/* Custom file input button */}
+                <label className="custom-file-button">
+                  {file ? "Change File" : "Add Image"}
                   <input
                     type="file"
                     onChange={(e) => setFile(e.target.files[0])}
                     accept="image/*"
                   />
                 </label>
+                {file && <span className="file-name">{file.name}</span>}
 
                 <button type="submit">Submit</button>
-
                 {submitted && <p className="success-message">Submission sent!</p>}
               </form>
             </div>

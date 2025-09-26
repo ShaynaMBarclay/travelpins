@@ -4,7 +4,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-family: 'Georgia', serif;
+  font-family: "Indie Flower", cursive;
+  font-size: 1.2rem;
   color: #333;
   margin: 50px auto;
   padding: 0 20px;
@@ -87,6 +88,8 @@
   cursor: pointer;
   font-weight: bold;
   transition: all 0.2s ease;
+  font-family: "Montez", cursive;
+  font-size: 2.5rem;
 }
 
 .chapter-list button:hover {
@@ -104,12 +107,13 @@
 }
 
 .item-card h3 {
-  font-size: 16px;
+  font-size: 1.5rem;
   margin-bottom: 8px;
 }
 
 .item-card p {
-  font-size: 14px;
+  font-size: 1.2rem;
+  font-family: "Caveat", cursive;
 }
 
 /* Images in item card */
@@ -182,6 +186,7 @@
   text-decoration: none;
   color: #333;
   transition: all 0.2s ease;
+  
 }
 
 .navigation-link:hover {

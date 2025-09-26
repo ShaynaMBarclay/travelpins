@@ -36,8 +36,8 @@
   transform-origin: left center;
   animation: closedBookFadeIn 0.8s forwards;
   color: #fdf6e3;
-  font-family: 'Georgia', serif;
-  font-size: 2.5rem;
+  font-family: "Just Another Hand", cursive;
+  font-size: 5rem;
   text-align: center;
   text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
 }

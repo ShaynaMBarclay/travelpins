@@ -2,3 +2,18 @@
 @import "./Chapter.css";
 @import "./form.css";
 @import "./BookAnimation.css";
+
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Indie+Flower&family=Just+Another+Hand&family=Montez&family=Pinyon+Script&display=swap');
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+   background-color: #cfcbaf;
+}
+
+/* Optional: make sure content scrolls over background */
+body {
+  min-height: 100vh;
+  overflow-x: hidden;
+}
