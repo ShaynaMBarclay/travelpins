@@ -6,13 +6,15 @@
   font-family: 'Georgia', serif;
   color: #333;
   margin: 50px auto;
+  padding: 0 20px; 
 }
 
 /* Book container */
 .book {
   display: flex;
-  width: 900px;
-  height: 500px;
+  width: 100%;
+  max-width: 1200px; 
+  height: 550px; 
   background: #fdf6e3;
   box-shadow: 0 10px 30px rgba(0,0,0,0.2);
   border-radius: 10px;
@@ -23,7 +25,7 @@
 /* Pages */
 .page {
   flex: 1;
-  padding: 30px;
+  padding: 25px; 
   background: repeating-linear-gradient(
     to bottom,
     #fdf6e3,
@@ -65,17 +67,70 @@
   padding: 20px;
 }
 
+/* Item card styling */
 .item-card {
   background: #fff8e7;
-  padding: 15px;
-  border-radius: 10px;
-  margin-bottom: 20px;
+  padding: 10px; 
+  border-radius: 8px;
+  margin-bottom: 15px; 
   text-align: center;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
 }
 
+.item-card h3 {
+  font-size: 16px; 
+  margin-bottom: 8px;
+}
+
+.item-card p {
+  font-size: 14px; 
+}
+
+/* Images in item card */
 .item-card img {
-  max-width: 100%;
+  max-width: 50%;
   border-radius: 8px;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
+}
+
+/* Custom scrollbar */
+.page::-webkit-scrollbar {
+  width: 12px;
+}
+
+.page::-webkit-scrollbar-track {
+  background: #ffefc5;
+  border-radius: 8px;
+}
+
+.page::-webkit-scrollbar-thumb {
+  background: #d4b483;
+  border-radius: 8px;
+  border: 2px solid #ffefc5;
+}
+
+.page::-webkit-scrollbar-thumb:hover {
+  background: #b88850;
+}
+
+/* Responsive scaling for smaller desktops */
+@media (max-width: 1280px) {
+  .book {
+    max-width: 1000px;
+    height: 500px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .book {
+    max-width: 900px;
+    height: 450px;
+  }
+}
+
+@media (max-width: 768px) {
+  .book {
+    flex-direction: column; /* temporary stack for smaller screens */
+    height: auto;
+  }
 }

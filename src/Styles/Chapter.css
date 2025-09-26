@@ -1,0 +1,27 @@
+/* Book navigation below the book */
+.book-navigation {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.book-navigation button {
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: 2px solid #d4b483;
+  background: #ffefc5;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.book-navigation button:hover:not(:disabled) {
+  background: #ffe49b;
+}
+
+.book-navigation button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}

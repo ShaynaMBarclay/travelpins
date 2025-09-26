@@ -5,14 +5,12 @@ import storyblok from "../Components/storyblok";
 function ChapterPage() {
   const { countrySlug, chapterSlug } = useParams();
   const [story, setStory] = useState(null);
+  const [currentPage, setCurrentPage] = useState(0); // will increment by 2 for left/right pages
 
   useEffect(() => {
     storyblok
       .get(`cdn/stories/${countrySlug}`, { version: "published" })
-      .then((res) => {
-        console.log("Full Storyblok response:", res);
-        setStory(res.data.story);
-      })
+      .then((res) => setStory(res.data.story))
       .catch(console.error);
   }, [countrySlug]);
 
@@ -20,67 +18,79 @@ function ChapterPage() {
 
   const countryName = story.name;
 
-  // Get all blocks that match the chapterSlug (case-insensitive)
+  // Filter blocks that match the chapterSlug
   const chapterBlocks =
     story.content?.body?.filter(
       (block) => block.component.toLowerCase() === chapterSlug.toLowerCase()
     ) || [];
 
-  console.log("Chapter blocks:", chapterBlocks);
-
-  // Flatten all items from the blocks into a single array
+  // Flatten all items
   const entries = chapterBlocks.flatMap((block) => block.items || []);
+
+  const totalPages = Math.ceil(entries.length / 2); // 2 entries per spread
+
+  const leftEntry = entries[currentPage * 2];
+  const rightEntry = entries[currentPage * 2 + 1];
+
+  const getImageUrl = (entry) => {
+    if (!entry || !entry.image) return null;
+    if (Array.isArray(entry.image) && entry.image.length > 0) return entry.image[0].filename || entry.image[0].url;
+    if (entry.image.filename) return entry.image.filename || entry.image.url;
+    return entry.image;
+  };
+
+  const nextPage = () => {
+    if (currentPage < totalPages - 1) setCurrentPage(currentPage + 1);
+  };
+
+  const prevPage = () => {
+    if (currentPage > 0) setCurrentPage(currentPage - 1);
+  };
+
+  const renderEntry = (entry) => {
+    if (!entry) return null;
+    const imageUrl = getImageUrl(entry);
+    const imageAlt = entry.title || "";
+    return (
+      <div className="item-card">
+        {imageUrl && <img src={imageUrl} alt={imageAlt} />}
+        <h3>{entry.title}</h3>
+        <p>{entry.description}</p>
+      </div>
+    );
+  };
 
   return (
     <div className="country-page chapter-page">
       <h1>{countryName}</h1>
 
       <div className="book">
-        {/* Left page: blank */}
-        <div className="page"></div>
+        {/* Left page */}
+        <div className="page">
+          <h2>{chapterSlug.charAt(0).toUpperCase() + chapterSlug.slice(1)}</h2>
+          {renderEntry(leftEntry)}
+        </div>
 
         {/* Spine */}
         <div className="spine"></div>
 
-        {/* Right page: chapter content */}
+        {/* Right page */}
         <div className="page">
-          <h2>
-            {chapterSlug.charAt(0).toUpperCase() + chapterSlug.slice(1)}
-          </h2>
-
-          {entries.length > 0 ? (
-            entries.map((entry) => {
-              let imageUrl = null;
-              let imageAlt = entry.title || "";
-
-              if (entry.image) {
-                if (Array.isArray(entry.image) && entry.image.length > 0) {
-                  imageUrl = entry.image[0].filename || entry.image[0].url;
-                  imageAlt = entry.image[0].alt || entry.title;
-                } else if (entry.image.filename) {
-                  imageUrl = entry.image.filename || entry.image.url;
-                  imageAlt = entry.image.alt || entry.title;
-                }
-              }
-
-              return (
-                <div key={entry._uid} className="item-card">
-                  {imageUrl && (
-                    <img
-                      src={imageUrl}
-                      alt={imageAlt}
-                      style={{ maxWidth: "100%", borderRadius: "8px" }}
-                    />
-                  )}
-                  <h3>{entry.title}</h3>
-                  <p>{entry.description}</p>
-                </div>
-              );
-            })
-          ) : (
-            <p>No content in this chapter yet.</p>
-          )}
+          {renderEntry(rightEntry)}
         </div>
+      </div>
+
+      {/* Navigation arrows below the book */}
+      <div className="book-navigation">
+        <button onClick={prevPage} disabled={currentPage === 0}>
+          ← Previous
+        </button>
+        <span>
+          Page {currentPage + 1} / {totalPages}
+        </span>
+        <button onClick={nextPage} disabled={currentPage === totalPages - 1}>
+          Next →
+        </button>
       </div>
 
       <div style={{ marginTop: "20px" }}>

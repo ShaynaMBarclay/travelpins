@@ -1,7 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import CountryPage from "./Pages/CountryPage";
-import Placeholder from "./Pages/Placeholder"; 
 import ChapterPage from "./Pages/ChapterPage";
 import Globe from "./Globe";
 import "./Styles/App.css";
