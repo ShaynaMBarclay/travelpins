@@ -17,13 +17,6 @@ function ChapterPage() {
 
   const countryName = story.name;
 
-  // Always show these buttons
-  const chapters = [
-    { name: "Views", slug: "views" },
-    { name: "Food", slug: "food" },
-    { name: "Activities", slug: "activities" },
-  ];
-
   // Get the content for the selected chapter
   const selectedChapter = story.content.chapters?.find(
     (c) => c.slug === chapterSlug
@@ -36,25 +29,9 @@ function ChapterPage() {
       <h1>{countryName}</h1>
 
       <div className="book">
-        {/* Left page: chapter buttons */}
+        {/* Left page: blank or spine-only */}
         <div className="page">
-          <h2>Chapters</h2>
-          <div className="chapter-list">
-            {chapters.map((chapter) => (
-              <Link
-                key={chapter.slug}
-                to={`/country/${countrySlug}/${chapter.slug}`}
-              >
-                <button
-                  className={
-                    chapter.slug === chapterSlug ? "active-button" : ""
-                  }
-                >
-                  {chapter.name}
-                </button>
-              </Link>
-            ))}
-          </div>
+          {/* Optionally: you can show chapter title or a small note */}
         </div>
 
         {/* Spine */}
@@ -62,11 +39,12 @@ function ChapterPage() {
 
         {/* Right page: chapter content */}
         <div className="page">
+          <h2>{chapterSlug.charAt(0).toUpperCase() + chapterSlug.slice(1)}</h2>
           {entries.length > 0 ? (
             entries.map((entry) => (
               <div key={entry._uid} className="item-card">
                 {entry.image && <img src={entry.image} alt={entry.title} />}
-                <h2>{entry.title}</h2>
+                <h3>{entry.title}</h3>
                 <p>{entry.description}</p>
               </div>
             ))
