@@ -98,7 +98,7 @@ function GlobeScene() {
 
 export default function Globe() {
   return (
-    <Canvas
+    <Canvas className="globe-canvas"
       style={{
         position: "fixed",
         top: 0,
