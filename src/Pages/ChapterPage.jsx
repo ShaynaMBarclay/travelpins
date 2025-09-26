@@ -7,12 +7,9 @@ function ChapterPage() {
   const [story, setStory] = useState(null);
   const [currentPage, setCurrentPage] = useState(0);
   const [imagesLoaded, setImagesLoaded] = useState({});
-
-  // Overlay animation state
   const [showOverlay, setShowOverlay] = useState(true);
   const [overlayClass, setOverlayClass] = useState("book-closed-overlay");
 
-  // Fetch story content and play overlay animation
   useEffect(() => {
     storyblok
       .get(`cdn/stories/${countrySlug}`, { version: "published" })
@@ -36,7 +33,6 @@ function ChapterPage() {
     };
   }, [countrySlug, chapterSlug]);
 
-  // Reset imagesLoaded when changing pages
   useEffect(() => {
     setImagesLoaded({});
   }, [currentPage]);
@@ -103,7 +99,6 @@ function ChapterPage() {
 
   return (
     <div className="country-page chapter-page">
-      {/* Overlay animation */}
       {showOverlay && (
         <div className={overlayClass}>
           <div className="book-closed-spine"></div>
@@ -111,16 +106,13 @@ function ChapterPage() {
         </div>
       )}
 
-      {/* Main book content */}
       {!showOverlay && (
         <>
           <h1>{countryName}</h1>
           <div className="book-wrapper">
-            <div className="book">
+            <div className="book book-opening">
               <div className="page">
-                <h2>
-                  {chapterSlug.charAt(0).toUpperCase() + chapterSlug.slice(1)}
-                </h2>
+                <h2>{chapterSlug.charAt(0).toUpperCase() + chapterSlug.slice(1)}</h2>
                 {renderEntry(leftEntry, 0)}
               </div>
 

@@ -57,3 +57,18 @@
   from { transform: rotateY(0deg); }
   to   { transform: rotateY(-90deg); opacity: 0; }
 }
+
+.book-opening {
+  transform: scaleX(0);
+  transform-origin: center left;
+  animation: bookOpenAnim 0.8s forwards ease-out;
+}
+
+@keyframes bookOpenAnim {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}

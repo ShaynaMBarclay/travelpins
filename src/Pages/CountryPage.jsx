@@ -9,11 +9,8 @@ import BookAnimationOverlay from "../Components/BookAnimationOverlay";
 function CountryPage() {
   const { countrySlug } = useParams();
   const [story, setStory] = useState(null);
-
-  // Show overlay until animation is done
   const [overlayVisible, setOverlayVisible] = useState(true);
 
-  // Form state
   const [chapter, setChapter] = useState("views");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -86,9 +83,8 @@ function CountryPage() {
           />
         )}
 
-        {/* Actual book is hidden until overlay finishes */}
         {!overlayVisible && (
-          <div className="book">
+          <div className="book book-opening">
             <div className="page left-page">
               <h2>Chapters</h2>
               <div className="chapter-list">
@@ -105,21 +101,12 @@ function CountryPage() {
 
             <div className="spine"></div>
 
-            <div
-              className="page right-page fade-in"
-              style={{ animationDelay: "0.3s" }}
-            >
+            <div className="page right-page">
               <h2>Submit Your Entry</h2>
-              <form
-                onSubmit={handleSubmit}
-                className="submission-form book-style"
-              >
+              <form onSubmit={handleSubmit} className="submission-form book-style">
                 <label>
                   Chapter:
-                  <select
-                    value={chapter}
-                    onChange={(e) => setChapter(e.target.value)}
-                  >
+                  <select value={chapter} onChange={(e) => setChapter(e.target.value)}>
                     <option value="views">Views</option>
                     <option value="food">Food</option>
                     <option value="activities">Activities</option>
