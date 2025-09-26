@@ -1,137 +1,18 @@
 // Globe.jsx
 import { Canvas, useFrame } from "@react-three/fiber";
 import { OrbitControls, Sphere, useTexture, Html } from "@react-three/drei";
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
 import * as THREE from "three";
-import StarField from "./StarField";
-import CountryPage from "./Pages/CountryPage";
-import { useNavigate } from "react-router-dom";
+
+//-- DATA -- //
 import countries_coord from "./Data/countries-coord.json";
 
-function latLngToVector3(lat, lng, radius = 2.05) {
-  const phi = (90 - lat) * (Math.PI / 180);
-  const theta = (lng + 180) * (Math.PI / 180);
-  return new THREE.Vector3(
-    -radius * Math.sin(phi) * Math.cos(theta),
-    radius * Math.cos(phi),
-    radius * Math.sin(phi) * Math.sin(theta)
-  );
-}
+//-- COMPONENTS --//
+import Pin from "./Components/Pin";
+import Atmosphere from "./Components/Atmosphere";
+import MovingStars from "./Components/MovingStars";
 
-function slugify(str) {
-  return str
-    .toLowerCase()
-    .replace(/\s+/g, "-")   // spaces → dashes
-    .replace(/[^\w-]+/g, ""); // remove special chars
-}
-
-function PinLabel({ position, text }) {
-  return (
-    <Html position={position.toArray()} center>
-      <h3
-        style={{
-          background: "rgba(0,0,0,0.7)",
-          color: "white",
-          padding: "4px 8px",
-          borderRadius: "4px",
-          fontSize: "12px",
-          whiteSpace: "nowrap",
-          pointerEvents: "none", // don't block raycasting
-        }}
-      >
-        {text}
-      </h3>
-    </Html>
-  );
-}
-
-function Pin({ lat, lng, name, onClick }) {
-  const [hovered, setHovered] = useState(false);
-  const headRef = useRef();
-  const stemRef = useRef();
-  const navigate = useNavigate();
-
-  const stemHeight = 0.1;
-  const baseRadius = 2.05;
-
-  const surfacePos = latLngToVector3(lat, lng, baseRadius);
-  const normal = surfacePos.clone().normalize();
-  const quaternion = new THREE.Quaternion().setFromUnitVectors(
-    new THREE.Vector3(0, 1, 0),
-    normal
-  );
-  const headLocalPos = surfacePos.clone().add(normal.clone().multiplyScalar(stemHeight / 2));
-
-  // ✅ hover handler now inside component (has closure access)
-  const handleHoverPin = (value) => () => {
-    setHovered(value);
-  };
-
-  const handleClick = (ref) => (e) => {
-    e.stopPropagation();
-    const worldPos = new THREE.Vector3();
-    ref.current.getWorldPosition(worldPos);
-
-    onClick?.(worldPos);
-
-    // navigate to country
-    const slug = slugify(name);
-    navigate(`/country/${slug}`);
-
-    // 👇 On mobile, also toggle hover state to show label
-    if ("ontouchstart" in window) {
-      setHovered((prev) => !prev);
-    }
-  };
-
-  return (
-    <group>
-      {/* Stem */}
-      <mesh
-        ref={stemRef}
-        position={surfacePos}
-        quaternion={quaternion}
-        onPointerOver={handleHoverPin(true)}
-        onPointerOut={handleHoverPin(false)}
-        onClick={handleClick(stemRef)}
-      >
-        <cylinderGeometry args={[0.005, 0.005, stemHeight, 8]} />
-        <meshStandardMaterial color={hovered ? "#9E8762" : "#d4b483"} />
-      </mesh>
-
-      {/* Head */}
-      <mesh
-        ref={headRef}
-        position={headLocalPos}
-        onPointerOver={handleHoverPin(true)}
-        onPointerOut={handleHoverPin(false)}
-        onClick={handleClick(headRef)}
-      >
-        <sphereGeometry args={[0.04, 16, 16]} />
-        <meshStandardMaterial color={hovered ? "#9E8762" : "#d4b483"} />
-      </mesh>
-
-      {/* Tooltip */}
-      {hovered && <PinLabel position={headLocalPos} text={name} />}
-    </group>
-  );
-}
-
-function Atmosphere({ radius = 2 }) {
-  return (
-    <mesh scale={1.03}>
-      <sphereGeometry args={[radius, 64, 64]} />
-      <meshBasicMaterial
-        color="#8ac6ffff"
-        transparent
-        opacity={0.15}
-        blending={THREE.AdditiveBlending}
-        side={THREE.BackSide}
-      />
-    </mesh>
-  );
-}
-
+//Creates the earth with its texture and creates all the pins on earth from given country data
 function EarthWithPins({ onPinClick, spinning}) {
   const texture = useTexture("/earth-texture.jpg");
   const earthRef = useRef();
@@ -157,18 +38,15 @@ function EarthWithPins({ onPinClick, spinning}) {
       <Sphere args={[2, 64, 64]}>
         <meshStandardMaterial map={texture} />
       </Sphere>
-      <Atmosphere radius={2} />
+      <Atmosphere radius={2} /> 
       {locations.map((loc, i) => (
-        <Pin key={i} {...loc} onClick={onPinClick} />
+        <Pin key={i} {...loc} onClick={onPinClick} earthRef={earthRef}/>
       ))}
     </group>
   );
 }
 
-function MovingStars() {
-  return <StarField count={5000} radius={400} />;
-}
-
+//Declares a globe scene with controls and spinning (zooms and stops for a bit when we click on a pin)
 function GlobeScene() {
   const controlsRef = useRef();
   const [targetPos, setTargetPos] = useState(null);
