@@ -44,7 +44,7 @@ function Pin({ lat, lng, name, onClick }) {
     ref.current.getWorldPosition(worldPos);
     setSelected((s) => !s);
     onClick?.(worldPos);
-    navigate(`/country/${France}`);
+    navigate(`/country/france`); 
   };
 
   return (
@@ -179,8 +179,11 @@ function GlobeScene() {
 
 export default function Globe() {
   return (
-    <Canvas camera={{ position: [0, 0, 6], fov: 50 }}>
-      <GlobeScene />
-    </Canvas>
+    <div style={{ width: "100%", height: "100%", background: "#000" }}>
+        <Canvas camera={{ position: [0, 0, 6], fov: 50 }}>
+          <GlobeScene />
+        </Canvas>
+      </div>
+    
   );
 }
