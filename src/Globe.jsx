@@ -25,6 +25,26 @@ function slugify(str) {
     .replace(/[^\w-]+/g, ""); // remove special chars
 }
 
+function PinLabel({ position, text }) {
+  return (
+    <Html position={position.toArray()} center>
+      <h3
+        style={{
+          background: "rgba(0,0,0,0.7)",
+          color: "white",
+          padding: "4px 8px",
+          borderRadius: "4px",
+          fontSize: "12px",
+          whiteSpace: "nowrap",
+          pointerEvents: "none", // don't block raycasting
+        }}
+      >
+        {text}
+      </h3>
+    </Html>
+  );
+}
+
 function Pin({ lat, lng, name, onClick }) {
   const [hovered, setHovered] = useState(false);
   const headRef = useRef();
@@ -40,9 +60,12 @@ function Pin({ lat, lng, name, onClick }) {
     new THREE.Vector3(0, 1, 0),
     normal
   );
-  const headLocalPos = surfacePos
-    .clone()
-    .add(normal.clone().multiplyScalar(stemHeight / 2));
+  const headLocalPos = surfacePos.clone().add(normal.clone().multiplyScalar(stemHeight / 2));
+
+  // ✅ hover handler now inside component (has closure access)
+  const handleHoverPin = (value) => () => {
+    setHovered(value);
+  };
 
   const handleClick = (ref) => (e) => {
     e.stopPropagation();
@@ -51,9 +74,14 @@ function Pin({ lat, lng, name, onClick }) {
 
     onClick?.(worldPos);
 
-    // ✅ use name dynamically
+    // navigate to country
     const slug = slugify(name);
     navigate(`/country/${slug}`);
+
+    // 👇 On mobile, also toggle hover state to show label
+    if ("ontouchstart" in window) {
+      setHovered((prev) => !prev);
+    }
   };
 
   return (
@@ -63,8 +91,8 @@ function Pin({ lat, lng, name, onClick }) {
         ref={stemRef}
         position={surfacePos}
         quaternion={quaternion}
-        onPointerOver={() => setHovered(true)}
-        onPointerOut={() => setHovered(false)}
+        onPointerOver={handleHoverPin(true)}
+        onPointerOut={handleHoverPin(false)}
         onClick={handleClick(stemRef)}
       >
         <cylinderGeometry args={[0.005, 0.005, stemHeight, 8]} />
@@ -75,13 +103,16 @@ function Pin({ lat, lng, name, onClick }) {
       <mesh
         ref={headRef}
         position={headLocalPos}
-        onPointerOver={() => setHovered(true)}
-        onPointerOut={() => setHovered(false)}
+        onPointerOver={handleHoverPin(true)}
+        onPointerOut={handleHoverPin(false)}
         onClick={handleClick(headRef)}
       >
         <sphereGeometry args={[0.04, 16, 16]} />
         <meshStandardMaterial color={hovered ? "#9E8762" : "#d4b483"} />
       </mesh>
+
+      {/* Tooltip */}
+      {hovered && <PinLabel position={headLocalPos} text={name} />}
     </group>
   );
 }
