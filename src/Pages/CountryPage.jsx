@@ -25,8 +25,8 @@ function CountryPage() {
   ];
 
   return (
-    <div className="country-page">
-      <h1>{countryName}</h1>
+      <div className="country-page">
+            <h1>{countryName}</h1>
 
       <div className="book">
         {/* Left page with chapter buttons */}
