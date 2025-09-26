@@ -3,14 +3,14 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 450px;
-  height: 400px;
+  width: 500px;   
+  height: 450px;  
   transform: translate(-50%, -50%);
   perspective: 1500px;
   z-index: 20;
   display: flex;
-  justify-content: flex-start;
-  align-items: center;
+  justify-content: center; 
+  align-items: center;    
 }
 
 .book-closed-spine {
