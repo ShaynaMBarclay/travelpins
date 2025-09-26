@@ -67,12 +67,6 @@ function CountryPage() {
 
   return (
     <div className="country-page">
-      <div style={{ marginBottom: "20px" }}>
-        <Link to="/" className="navigation-link">
-          🌐 Back to Globe
-        </Link>
-      </div>
-
       <h1>{countryName}</h1>
 
       <div className="book-wrapper">
@@ -106,7 +100,10 @@ function CountryPage() {
               <form onSubmit={handleSubmit} className="submission-form book-style">
                 <label>
                   Chapter:
-                  <select value={chapter} onChange={(e) => setChapter(e.target.value)}>
+                  <select
+                    value={chapter}
+                    onChange={(e) => setChapter(e.target.value)}
+                  >
                     <option value="views">Views</option>
                     <option value="food">Food</option>
                     <option value="activities">Activities</option>
@@ -149,6 +146,13 @@ function CountryPage() {
             </div>
           </div>
         )}
+      </div>
+
+      {/* Back to Globe button at the bottom */}
+      <div style={{ marginTop: "30px", marginBottom: "50px" }}>
+        <Link to="/" className="navigation-link">
+          🌐 Back to Globe
+        </Link>
       </div>
     </div>
   );
