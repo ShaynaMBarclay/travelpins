@@ -3,6 +3,7 @@ import React from "react"
 import { Routes, Route, useNavigate, useLocation } from "react-router-dom"
 import { TourProvider, useTour } from "@reactour/tour"
 import Globe from "./Globe"
+import ScrollToTop from "./Components/ScrollToTop"
 import CountryPage from "./Pages/CountryPage"
 import ChapterPage from "./Pages/ChapterPage"
 import "./Styles/App.css"
@@ -28,7 +29,8 @@ const steps = [
   {
     selector: '[data-tour="country-book"]',
     position: "left",
-    content: "Here you’ll see categories of content for the selected country (eg. France).",
+    content:
+      "Here you’ll see categories of content for the selected country (eg. France).",
   },
   {
     selector: '[data-tour="chapter-food"]',
@@ -48,10 +50,11 @@ const steps = [
 ]
 
 /**
- * Hook that retries until the selector exists in DOM,
- * and freezes/unfreezes Next/Prev buttons accordingly.
+ * Hook: wait until selector exists, then force Reactour to recalc
  */
-function useStepReady(steps, currentStep, setDisabledActions) {
+function useStepReady(steps, currentStep) {
+  const { setCurrentStep } = useTour()
+
   React.useEffect(() => {
     const selector = steps[currentStep]?.selector
     if (!selector) return
@@ -59,61 +62,52 @@ function useStepReady(steps, currentStep, setDisabledActions) {
     let retries = 0
     const check = setInterval(() => {
       const el = document.querySelector(selector)
-      if (el) {
-        setDisabledActions(false) // element exists → enable buttons
+      if (el && el.getBoundingClientRect().width > 0) {
+        // 🔑 Force recalc of the mask
+        setCurrentStep(currentStep)
         clearInterval(check)
       } else {
-        setDisabledActions(true) // element missing → freeze
         retries++
         if (retries > 50) clearInterval(check) // stop after ~5s
       }
     }, 100)
 
     return () => clearInterval(check)
-  }, [steps, currentStep, setDisabledActions])
+  }, [steps, currentStep, setCurrentStep])
 }
 
 /**
- * Watches currentStep + URL and keeps them in sync
+ * Keeps tour in sync with routing
  */
 function TourNavigation({ steps }) {
-  const { isOpen, currentStep, setCurrentStep, setDisabledActions } = useTour()
+  const { isOpen, currentStep, setCurrentStep } = useTour()
   const navigate = useNavigate()
   const location = useLocation()
 
-  // Wait until selector is ready
-  useStepReady(steps, currentStep, setDisabledActions)
+  // ✅ Ensure overlay is refreshed when element appears
+  useStepReady(steps, currentStep)
 
+  // Sync step progression when user navigates manually
   React.useEffect(() => {
     if (!isOpen) return
-
     const { pathname } = location
-
-    // Step 2: when France pin clicked → advance to country page step
     if (pathname === "/country/france" && currentStep < 3) {
       setCurrentStep(3)
     }
-
-    // Step 4: when Food chapter clicked → advance to chapter step
     if (pathname === "/country/france/food" && currentStep < 5) {
       setCurrentStep(5)
     }
   }, [isOpen, location.pathname, currentStep, setCurrentStep])
 
+  // Enforce route when step changes
   React.useEffect(() => {
     if (!isOpen) return
-
-    // Step 3: enforce France page
     if (currentStep === 3 && location.pathname !== "/country/france") {
       navigate("/country/france")
     }
-
-    // Step 5: enforce Food chapter page
     if (currentStep === 5 && location.pathname !== "/country/france/food") {
       navigate("/country/france/food")
     }
-
-    // Step 6: final step goes home
     if (currentStep === 6 && location.pathname !== "/") {
       navigate("/")
     }
@@ -123,7 +117,7 @@ function TourNavigation({ steps }) {
 }
 
 /**
- * Controller UI for demo/debug
+ * Debug UI controller
  */
 function TourController({ steps }) {
   const { isOpen, setIsOpen, currentStep, setCurrentStep } = useTour()
@@ -134,7 +128,9 @@ function TourController({ steps }) {
 
       {isOpen && (
         <>
-          <div>Step {currentStep + 1}/{steps.length}</div>
+          <div>
+            Step {currentStep + 1}/{steps.length}
+          </div>
           <button
             onClick={() => setCurrentStep(currentStep - 1)}
             disabled={currentStep === 0}
@@ -155,11 +151,15 @@ function TourController({ steps }) {
 
 export default function App() {
   return (
-    <TourProvider steps={steps}>
+    <TourProvider steps={steps} disableKeyboardNavigation>
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Globe />} />
         <Route path="/country/:countrySlug" element={<CountryPage />} />
-        <Route path="/country/:countrySlug/:chapterSlug" element={<ChapterPage />} />
+        <Route
+          path="/country/:countrySlug/:chapterSlug"
+          element={<ChapterPage />}
+        />
       </Routes>
 
       <TourNavigation steps={steps} />

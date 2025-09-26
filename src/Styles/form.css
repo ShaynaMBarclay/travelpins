@@ -1,0 +1,104 @@
+.left-page, .right-page {
+  padding: 25px;
+  background: repeating-linear-gradient(
+    to bottom,
+    #fdf6e3,
+    #fdf6e3 29px,
+    #ccc 30px
+  );
+  border-radius: 8px;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.submission-form.book-style {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: #fff8e7;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+.submission-form.book-style label {
+  display: flex;
+  flex-direction: column;
+  font-weight: bold;
+}
+
+.submission-form.book-style input,
+.submission-form.book-style select,
+.submission-form.book-style textarea {
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #d4b483;
+  margin-top: 4px;
+}
+
+.submission-form.book-style button {
+  padding: 10px;
+  border-radius: 8px;
+  border: 2px solid #d4b483;
+  background: #ffefc5;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.submission-form.book-style button:hover {
+  background: #ffe49b;
+}
+
+.success-message {
+  color: green;
+  font-weight: bold;
+  margin-top: 8px;
+}
+
+@keyframes fadeInAnim {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInAnim 0.5s forwards;
+}
+
+.right-page.fade-in {
+  animation-delay: 0.3s;
+}
+
+/* Hide the real file input */
+.submission-form.book-style input[type="file"] {
+  display: none;
+}
+
+/* Custom file button */
+.custom-file-button {
+  display: inline-block;
+  padding: 10px 15px;
+  border-radius: 8px;
+  border: 2px solid #d4b483;
+  background: #ffefc5;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+  width: fit-content;
+}
+
+.custom-file-button:hover {
+  background: #ffe49b;
+}
+
+/* Optional: display the selected file name */
+.file-name {
+  margin-top: 6px;
+  font-style: italic;
+  font-size: 14px;
+}
