@@ -6,6 +6,7 @@ import * as THREE from "three";
 import StarField from "./StarField";
 import CountryPage from "./Pages/CountryPage";
 import { useNavigate } from "react-router-dom";
+import countries_coord from "./Data/countries-coord.json";
 
 function latLngToVector3(lat, lng, radius = 2.05) {
   const phi = (90 - lat) * (Math.PI / 180);
@@ -17,13 +18,18 @@ function latLngToVector3(lat, lng, radius = 2.05) {
   );
 }
 
+function slugify(str) {
+  return str
+    .toLowerCase()
+    .replace(/\s+/g, "-")   // spaces → dashes
+    .replace(/[^\w-]+/g, ""); // remove special chars
+}
+
 function Pin({ lat, lng, name, onClick }) {
   const [hovered, setHovered] = useState(false);
-  const [selected, setSelected] = useState(false);
   const headRef = useRef();
   const stemRef = useRef();
-
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const stemHeight = 0.1;
   const baseRadius = 2.05;
@@ -42,9 +48,12 @@ function Pin({ lat, lng, name, onClick }) {
     e.stopPropagation();
     const worldPos = new THREE.Vector3();
     ref.current.getWorldPosition(worldPos);
-    setSelected((s) => !s);
+
     onClick?.(worldPos);
-    navigate(`/country/france`); 
+
+    // ✅ use name dynamically
+    const slug = slugify(name);
+    navigate(`/country/${slug}`);
   };
 
   return (
@@ -103,13 +112,14 @@ function EarthWithPins({ onPinClick, spinning}) {
     }
   });
 
-  const locations = [
-    { lat: 40.7128, lng: -74.006, name: "New York" },
-    { lat: 48.8566, lng: 2.3522, name: "Paris" },
-    { lat: 35.6895, lng: 139.6917, name: "Tokyo" },
-    { lat: 36.81897, lng: 10.16579, name: "Tunis" },
-    { lat: 39.045753, lng: -76.641273, name: "Maryland" },
-  ];
+  // convert your JSON to an array of {lat, lng, name}
+  const locations = Object.entries(countries_coord.countries_coord).map(
+    ([name, { lat, lng }]) => ({
+      name,
+      lat,
+      lng,
+    })
+  );
 
   return (
     <group ref={earthRef}>
@@ -179,11 +189,19 @@ function GlobeScene() {
 
 export default function Globe() {
   return (
-    <div style={{ width: "100%", height: "100%", background: "#000" }}>
-        <Canvas camera={{ position: [0, 0, 6], fov: 50 }}>
-          <GlobeScene />
-        </Canvas>
-      </div>
-    
+    <Canvas
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        width: "100vw",
+        height: "100vh",
+        background: "#000",
+        touchAction: "none", // prevents weird scroll/zoom gestures on mobile
+      }}
+      camera={{ position: [0, 0, 6], fov: 50 }}
+    >
+      <GlobeScene />
+    </Canvas>
   );
 }
