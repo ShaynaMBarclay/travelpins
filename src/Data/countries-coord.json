@@ -1,0 +1,97 @@
+{ 
+    "countries_coord": {
+        "United States": {
+            "lat": 37.09, 
+            "lng": -95.71
+        },
+        "Tunisia": {
+            "lat": 33.89, 
+            "lng": 9.54
+        },
+        "France": {
+            "lat": 46.23, 
+            "lng": 2.21
+        },
+        "Italy": {
+            "lat": 41.87, 
+             "lng": 12.57
+        },
+        "Indonesia": {
+            "lat": -0.79, 
+            "lng": 113.92
+        },
+        "Japan": {
+            "lat": 36.2, 
+            "lng": 138.25
+        },
+        "Spain": {
+            "lat": 40.46, 
+            "lng": -3.75
+        },
+        "Switzerland": {
+            "lat": -26.52, 
+             "lng": 31.47
+        },
+        "Nepal": {
+            "lat": 28.39, 
+            "lng": 84.12
+        },
+        "New Zealand": {
+            "lat": -40.9, 
+            "lng": 174.89
+        },
+        "Norway": {
+            "lat": 60.47, 
+            "lng": 8.47
+        },
+        "Portugal": {
+            "lat": 39.4, 
+            "lng": -8.22
+        },
+        "South Korea": {
+            "lat": 35.91, 
+            "lng": 127.77
+        },
+        "Monaco": {
+            "lat": 43.75, 
+            "lng": 7.41
+        }, 
+        "Turkey": {
+            "lat": 38.96, 
+            "lng": 35.24
+        },
+        "United Kingdom": {
+            "lat": 55.38, 
+            "lng": -3.44
+        },
+        "Germany": {
+            "lat": 51.17, 
+            "lng": 10.45
+        },
+        "Tanzania": {
+            "lat": -6.37, 
+            "lng": 34.89
+        },  
+        "Algeria": {
+            "lat": 28.03, 
+            "lng": 1.66
+        },
+        "Brazil": {
+            "lat": -14.24, 
+            "lng": -51.93
+        },
+        "South Africa": {
+            "lat": -30.56	, 
+            "lng": 22.94
+        },
+        "China": {
+            "lat": 35.86, 
+            "lng": 104.2 
+        },
+        "Cameroon": {
+            "lat": 7.37, 
+            "lng": 12.35
+        }
+        
+    }
+}
