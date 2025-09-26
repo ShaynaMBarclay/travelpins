@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import storyblok from "../Components/storyblok";
-import { db, storage } from "../firebase";
+import { db, storage } from "../Helpers/firebase.js";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import BookAnimationOverlay from "../Components/BookAnimationOverlay";
