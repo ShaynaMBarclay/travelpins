@@ -108,7 +108,6 @@ function ChapterPage() {
 
       {!showOverlay && (
         <>
-          <h1>{countryName}</h1>
           <div className="book-wrapper">
             <div className="book book-opening">
               <div className="page">

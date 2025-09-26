@@ -3,8 +3,8 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 600px;
-  height: 550px;
+  width: 450px;
+  height: 400px;
   transform: translate(-50%, -50%);
   perspective: 1500px;
   z-index: 20;
@@ -14,7 +14,7 @@
 }
 
 .book-closed-spine {
-  width: 40px;
+  width: 30px;
   height: 100%;
   background: linear-gradient(180deg, #3b2418, #5a3825);
   border-right: 2px solid #d4b483;
@@ -24,7 +24,7 @@
 }
 
 .book-closed-front {
-  width: 560px;
+  width: 420px;
   height: 100%;
   background: linear-gradient(135deg, #5a3825, #3b2418);
   border-radius: 0 10px 10px 0;
@@ -37,7 +37,7 @@
   animation: closedBookFadeIn 0.8s forwards;
   color: #fdf6e3;
   font-family: "Just Another Hand", cursive;
-  font-size: 5rem;
+  font-size: 4rem;
   text-align: center;
   text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
 }
