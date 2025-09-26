@@ -137,6 +137,7 @@ function ChapterPage() {
           <div
             style={{
               marginTop: "20px",
+              marginBottom: "5rem",
               display: "flex",
               gap: "20px",
               justifyContent: "center",

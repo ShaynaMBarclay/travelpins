@@ -5,6 +5,7 @@
   justify-content: center;
   align-items: center;
   gap: 20px;
+  
 }
 
 .book-navigation button {
@@ -15,6 +16,7 @@
   font-weight: bold;
   cursor: pointer;
   transition: all 0.2s ease;
+  
 }
 
 .book-navigation button:hover:not(:disabled) {
