@@ -5,6 +5,7 @@ import { db, storage } from "../Helpers/firebase.js";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import BookAnimationOverlay from "../Components/BookAnimationOverlay";
+import { useLoading } from "../Components/LoadingContext.jsx";
 
 function CountryPage() {
   const { countrySlug } = useParams();
@@ -21,14 +22,23 @@ function CountryPage() {
   const [loadingFacts, setLoadingFacts] = useState(false);
   const [factsError, setFactsError] = useState("");
 
-  useEffect(() => {
-    storyblok
-      .get(`cdn/stories/${countrySlug}`, { version: "draft" })
-      .then((res) => setStory(res.data.story))
-      .catch(console.error);
-  }, [countrySlug]);
+  const { loading, setLoading } = useLoading();
 
-  if (!story) return <p>Loading...</p>;
+  useEffect(() => {
+    const fetchStory = async () => {
+      setLoading(true);
+      try {
+        const res = await storyblok.get(`cdn/stories/${countrySlug}`, { version: "draft" });
+        setStory(res.data.story);
+      } catch (err) {
+        console.error(err);
+      }
+      setLoading(false);
+    };
+    fetchStory();
+  }, [countrySlug, setLoading]);
+
+  if (!story) return null;
 
   const countryName = story.name;
 
@@ -69,7 +79,7 @@ function CountryPage() {
     setTimeout(() => setSubmitted(false), 3000);
   };
 
-    const fetchFunFacts = async () => {
+  const fetchFunFacts = async () => {
     setLoadingFacts(true);
     setFactsError("");
     setFunFacts([]);
@@ -94,7 +104,7 @@ function CountryPage() {
     setLoadingFacts(false);
   };
 
-   return (
+  return (
     <div className="country-page">
       <div className="book-wrapper">
         {overlayVisible && (

@@ -9,6 +9,8 @@ import ScrollToTop from "./Components/ScrollToTop"
 import CountryPage from "./Pages/CountryPage"
 import ChapterPage from "./Pages/ChapterPage"
 import TourController from "./Components/TourController.jsx"
+import GlobalSpinner from "./Components/GlobalSpinner";
+import { LoadingProvider } from "./Components/LoadingContext.jsx"
 
 /*-- CSS */
 import "./Styles/App.css"
@@ -20,7 +22,9 @@ import { steps } from "./Data/tourSteps.js";
 export default function App() {
   return (
     <div>
+      <LoadingProvider>
       <ScrollToTop />
+      <GlobalSpinner />
       <Routes>
         <Route
           path="/"
@@ -40,6 +44,7 @@ export default function App() {
           element={<ChapterPage />}
         />
       </Routes>
+      </LoadingProvider>
     </div>
   )
 }

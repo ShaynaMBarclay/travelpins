@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import storyblok from "../Components/storyblok";
+import { useLoading } from "../Components/LoadingContext.jsx";
+import GlobalSpinner from "../Components/GlobalSpinner";
 
 function ChapterPage() {
   const { countrySlug, chapterSlug } = useParams();
@@ -10,11 +12,20 @@ function ChapterPage() {
   const [showOverlay, setShowOverlay] = useState(true);
   const [overlayClass, setOverlayClass] = useState("book-closed-overlay");
 
+  const { setLoading } = useLoading();
+
   useEffect(() => {
-    storyblok
-      .get(`cdn/stories/${countrySlug}`, { version: "published" })
-      .then((res) => setStory(res.data.story))
-      .catch(console.error);
+    const fetchStory = async () => {
+      setLoading(true);
+      try {
+        const res = await storyblok.get(`cdn/stories/${countrySlug}`, { version: "published" });
+        setStory(res.data.story);
+      } catch (err) {
+        console.error(err);
+      }
+      setLoading(false);
+    };
+    fetchStory();
 
     setShowOverlay(true);
     setOverlayClass("book-closed-overlay");
@@ -31,13 +42,13 @@ function ChapterPage() {
       clearTimeout(timer);
       clearTimeout(revealBook);
     };
-  }, [countrySlug, chapterSlug]);
+  }, [countrySlug, chapterSlug, setLoading]);
 
   useEffect(() => {
     setImagesLoaded({});
   }, [currentPage]);
 
-  if (!story) return <p>Loading...</p>;
+  if (!story) return null;
 
   const countryName = story.name;
   const chapterBlocks =
@@ -97,8 +108,9 @@ function ChapterPage() {
     if (currentPage > 0) setCurrentPage(currentPage - 1);
   };
 
- return (
+  return (
     <div className="country-page chapter-page">
+      <GlobalSpinner />
       {showOverlay && (
         <div className={overlayClass}>
           <div className="book-closed-spine"></div>
@@ -110,7 +122,6 @@ function ChapterPage() {
         <>
           <div className="book-wrapper">
             <div data-tour="chapter-book" className="book book-opening">
-              {/* LEFT PAGE */}
               <div className="page left-page">
                 <h2>{chapterSlug.charAt(0).toUpperCase() + chapterSlug.slice(1)}</h2>
                 {renderEntry(leftEntry, 0)}
@@ -118,7 +129,6 @@ function ChapterPage() {
 
               <div className="spine"></div>
 
-              {/* RIGHT PAGE */}
               <div className="page right-page">{renderEntry(rightEntry, 1)}</div>
             </div>
           </div>
