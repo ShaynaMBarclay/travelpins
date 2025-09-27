@@ -21,8 +21,8 @@
 }
 
 .reactour__popover {
-    max-width: 40vw !important;
-    padding: 24px 30px;
+    max-width: 42vw !important;
+    padding: 40px 40px 24px 30px !important; /* more space top & right */ 
     border-radius: 12px;
     border: 1px solid #d4b483;
     background: #ffefc5;
@@ -30,8 +30,21 @@
     font-weight: medium;
     transition: all 0.2s ease;
     font-family: "Montez", cursive;
-    font-size: 1.6rem;
+    font-size: 1.7rem;
+    cursor: url('../assets/pointer.png'), auto !important;
+    white-space: pre-line; /* Respects the \n in the tour steps */
 }
+
+.reactour__popover button {
+    cursor: url('../assets/pointer.png'), auto !important;
+}
+
+.reactour__close-button {
+    position: absolute !important;
+    width: 1rem !important;
+    height: 1rem !important;
+    cursor: url('../assets/pointer.png'), auto !important;
+    }
 
 /* Phone Portrait (default small screens) */
 @media only screen and (max-width: 600px) and (orientation: portrait) {

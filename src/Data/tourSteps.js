@@ -1,7 +1,7 @@
 // tourSteps.js
 export const steps = [
   {
-    selector: "body",
+    selector: "html",
     position: "center",
     content: "👋 Welcome! Let’s take a quick tour of how this works.",
   },
@@ -14,7 +14,13 @@ export const steps = [
     selector: ".globe-canvas",
     position: "center",
     content:
-      "Click the France pin to open its country page.\n(Hover a pin to see its country name.)",
+      "Click the France pin to open its country page. (Spoiler, it's the pink one)"
+      + "\n(Zoom in to click a pin and hover over it to see its country name. )",
     stepInteraction: true,
+  },
+  {
+    selector: "body",
+    position: "center",
+    content: "That's it for the tour! Click on the X to close this and enjoy the rest of the app!",
   },
 ];
