@@ -2,6 +2,7 @@
 import { Canvas, useFrame } from "@react-three/fiber";
 import { OrbitControls, Sphere, useTexture, Html } from "@react-three/drei";
 import { useRef, useState } from "react";
+import { useTour } from "@reactour/tour";
 import * as THREE from "three";
 
 //-- DATA -- //
@@ -13,7 +14,7 @@ import Atmosphere from "./Components/Atmosphere";
 import MovingStars from "./Components/MovingStars";
 
 //Creates the earth with its texture and creates all the pins on earth from given country data
-function EarthWithPins({ onPinClick, spinning}) {
+function EarthWithPins({ highlight, onPinClick, spinning}) {
   const texture = useTexture("/earth-texture.jpg");
   const earthRef = useRef();
 
@@ -40,7 +41,7 @@ function EarthWithPins({ onPinClick, spinning}) {
       </Sphere>
       <Atmosphere radius={2} /> 
       {locations.map((loc, i) => (
-        <Pin key={i} {...loc} onClick={onPinClick} earthRef={earthRef}/>
+        <Pin key={i} {...loc} onClick={onPinClick} highlighted={loc.name === "France" && highlight} earthRef={earthRef}/>
       ))}
     </group>
   );
@@ -51,7 +52,10 @@ function GlobeScene() {
   const controlsRef = useRef();
   const [targetPos, setTargetPos] = useState(null);
   const [zooming, setZooming] = useState(false);
-  const [spinning, setSpinning] = useState(true); // 👈 control idle spin
+  const [spinning, setSpinning] = useState(true);
+
+  const { isOpen, currentStep } = useTour();
+  const highlight = isOpen && currentStep === 2;
 
   useFrame(({ camera }) => {
     if (zooming && targetPos && controlsRef.current) {
@@ -90,6 +94,7 @@ function GlobeScene() {
 
       <EarthWithPins
         spinning={spinning}
+        highlight={highlight}
         onPinClick={(worldPos) => {
           setTargetPos(worldPos.clone());
           setZooming(true);

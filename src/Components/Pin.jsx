@@ -7,6 +7,8 @@ import { useThree } from "@react-three/fiber";
 import PinLabel from "./PinLabel";
 import checkOcclusion from "../Helpers/raycaster";
 
+import "../Shaders/PinMaterial";
+
 const stemHeight = 0.1;
 const baseRadius = 2.05;
 
@@ -43,7 +45,7 @@ function calculateHeadPosition(lat, lng, baseRadius, stemHeight) {
     return { normal, headLocalPos, surfacePos, quaternion };
 }
 
-function Pin({ earthRef, lat, lng, name, onClick }) {
+function Pin({ highlighted, earthRef, lat, lng, name, onClick }) {
   const [hovered, setHovered] = useState(false);
   const { camera, gl } = useThree();
 
@@ -82,6 +84,7 @@ function Pin({ earthRef, lat, lng, name, onClick }) {
       setHovered((prev) => !prev);
     }
   };
+  
 
   return (
     <group>
@@ -105,9 +108,20 @@ function Pin({ earthRef, lat, lng, name, onClick }) {
         onPointerOver={handleHoverPin(headRef, true)}
         onPointerOut={handleHoverPin(headRef, false)}
         onClick={handleClick(headRef)}
+
+        scale={highlighted ? 1.4 : 1}
       >
         <sphereGeometry args={[0.04, 32, 32]} />
-        <meshStandardMaterial color={hovered ? "#9E8762" : "#d4b483"} />
+        {highlighted ? (
+          <pinMaterial
+            attach="material"
+          />
+        ) : (
+          <meshStandardMaterial
+            attach="material"
+            color={hovered ? "#9E8762" : "#d4b483"}
+          />
+        )}
       </mesh>
 
       {/* Tooltip */}

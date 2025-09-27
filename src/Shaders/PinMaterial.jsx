@@ -1,35 +1,49 @@
 // shaders/PinMaterial.jsx
-import * as THREE from "three"
-import { shaderMaterial } from "@react-three/drei"
-import { extend } from "@react-three/fiber"
+import * as THREE from "three";
+import { shaderMaterial } from "@react-three/drei";
+import { extend } from "@react-three/fiber";
 
+// Custom shader: glowing Fresnel effect with pulse
 const PinMaterial = shaderMaterial(
-  { uTime: 0, uColor: new THREE.Color("red") },
-  // vertex
+  { uTime: 0, uColor: new THREE.Color("pink") },
+
+  // Vertex shader
   `
-  varying vec2 vUv;
+  varying vec3 vNormal;
+
   void main() {
-    vUv = uv;
+    // Pass the normal to fragment for Fresnel effect
+    vNormal = normalize(normalMatrix * normal);
+
     gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
   }
   `,
-  // fragment
+
+  // Fragment shader
   `
   uniform float uTime;
   uniform vec3 uColor;
-  varying vec2 vUv;
+  varying vec3 vNormal;
 
   void main() {
-    vec2 uv = vUv - 0.5;
-    float dist = length(uv);
-    float glow = smoothstep(0.4, 0.0, dist);
-    float pulse = 0.7 + 0.3 * sin(uTime * 4.0);
-    gl_FragColor = vec4(uColor * glow * pulse, 1.0);
+    // Fresnel term: bright on edges
+    float fresnel = pow(1.0 - dot(normalize(vNormal), vec3(0.0, 0.0, 1.0)), 2.0);
+
+    // Pulse factor
+    float pulse = 0.8 + 0.2 * sin(uTime * 3.0);
+
+    // Mix base + fresnel
+    vec3 base = uColor * 0.5;          // constant glow everywhere
+    vec3 rim  = uColor * fresnel * 1.2; // rim contribution
+
+    vec3 color = (base + rim) * pulse;
+
+    gl_FragColor = vec4(color, 1.0);
   }
   `
-)
+);
 
-// ⬇️ This is critical: register the material with R3F
-extend({ PinMaterial })
+// Make <pinMaterial /> available in JSX
+extend({ PinMaterial });
 
-export { PinMaterial }
+export { PinMaterial };

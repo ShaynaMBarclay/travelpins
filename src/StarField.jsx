@@ -1,7 +1,7 @@
 // StarField.jsx
 import { useRef, useMemo } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
-import "./Shaders/StarMaterial"; // 👈 only need to import once to register
+import "./Shaders/StarMaterial";
 
 function StarField({ count = 3000, radius = 250 }) {
   const pointsRef = useRef();

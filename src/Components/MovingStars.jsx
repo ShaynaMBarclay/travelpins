@@ -1,5 +1,4 @@
 //MovingStars.jsx
-
 import StarField from "../StarField";
 
 function MovingStars() {
