@@ -76,12 +76,11 @@ function CountryPage() {
 
     try {
       const res = await fetch(
-        `http://localhost:4000/api/fun-facts?country=${countryName}`
+        `https://travelpinsserver.onrender.com/api/fun-facts?country=${countryName}`
       );
       const data = await res.json();
 
       if (res.ok) {
-        // Split facts by line breaks into an array
         const factsArray = data.facts.split(/\n/).filter(Boolean);
         setFunFacts(factsArray);
       } else {
