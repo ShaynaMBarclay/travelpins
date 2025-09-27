@@ -17,6 +17,10 @@ function CountryPage() {
   const [file, setFile] = useState(null);
   const [submitted, setSubmitted] = useState(false);
 
+  const [funFacts, setFunFacts] = useState([]);
+  const [loadingFacts, setLoadingFacts] = useState(false);
+  const [factsError, setFactsError] = useState("");
+
   useEffect(() => {
     storyblok
       .get(`cdn/stories/${countrySlug}`, { version: "draft" })
@@ -65,6 +69,32 @@ function CountryPage() {
     setTimeout(() => setSubmitted(false), 3000);
   };
 
+    const fetchFunFacts = async () => {
+    setLoadingFacts(true);
+    setFactsError("");
+    setFunFacts([]);
+
+    try {
+      const res = await fetch(
+        `http://localhost:4000/api/fun-facts?country=${countryName}`
+      );
+      const data = await res.json();
+
+      if (res.ok) {
+        // Split facts by line breaks into an array
+        const factsArray = data.facts.split(/\n/).filter(Boolean);
+        setFunFacts(factsArray);
+      } else {
+        setFactsError(data.error || "Failed to fetch fun facts");
+      }
+    } catch (err) {
+      console.error(err);
+      setFactsError("Failed to fetch fun facts");
+    }
+
+    setLoadingFacts(false);
+  };
+
   return (
     <div className="country-page">
       <div className="book-wrapper">
@@ -90,6 +120,36 @@ function CountryPage() {
                   </Link>
                 ))}
               </div>
+
+               <div style={{ marginTop: "20px" }}>
+                <button onClick={fetchFunFacts} disabled={loadingFacts}>
+                  {loadingFacts ? "Loading..." : "Get Fun Facts"}
+                </button>
+
+                {factsError && <p style={{ color: "red" }}>{factsError}</p>}
+
+                {/* Scrollable container for fun facts */}
+                {funFacts.length > 0 && (
+                  <div
+                    style={{
+                      marginTop: "10px",
+                      maxHeight: "200px",
+                      overflowY: "auto",
+                      padding: "10px",
+                      border: "1px solid #ccc",
+                      borderRadius: "5px",
+                      backgroundColor: "#f9f9f9",
+                    }}
+                  >
+                    <ul>
+                      {funFacts.map((fact, index) => (
+                        <li key={index}>{fact}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+              
             </div>
 
             <div className="spine"></div>
