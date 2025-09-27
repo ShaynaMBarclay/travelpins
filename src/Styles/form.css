@@ -38,6 +38,7 @@
   transition: all 0.2s ease;
   width: fit-content;   
   align-self: center; 
+  color: black;
 }
 
 .submission-form.book-style button:hover {
