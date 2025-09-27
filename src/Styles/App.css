@@ -10,13 +10,15 @@ html, body {
   height: 100%;
   margin: 0;
   padding: 0;
-   background-color: #cfcbaf;
+  background-color: #cfcbaf;
+  cursor: url('../assets/cursor.png'), auto;
 }
 
 /* Optional: make sure content scrolls over background */
 body {
   min-height: 100vh;
   overflow-x: hidden;
+  cursor: url('../assets/cursor.png'), auto;
 }
 
 .spinner {

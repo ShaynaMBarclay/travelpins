@@ -5,7 +5,6 @@
   justify-content: center;
   align-items: center;
   gap: 20px;
-  
 }
 
 .book-navigation button {
@@ -16,15 +15,17 @@
   font-weight: bold;
   cursor: pointer;
   transition: all 0.2s ease;
+  cursor: url('../assets/pointer.png'), auto;
 }
 
 .book-navigation button:hover:not(:disabled) {
   background: #ffe49b;
+  cursor: url('../assets/pointer.png'), auto;
 }
 
 .book-navigation button:disabled {
   opacity: 0.5;
-  cursor: default;
+  cursor: url('../assets/pointer.png'), auto;
 }
 
 /* Fade-in animation for content */
