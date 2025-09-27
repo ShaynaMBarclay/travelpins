@@ -127,7 +127,7 @@ function CountryPage() {
                   onClick={fetchFunFacts}
                   disabled={loadingFacts}
                 >
-                  {loadingFacts ? "Loading..." : "Get Fun Facts"}
+                  {loadingFacts ? "Loading..." : `Get Fun Facts about ${countryName}`}
                 </button>
 
                 {factsError && <p style={{ color: "red" }}>{factsError}</p>}

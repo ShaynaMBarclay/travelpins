@@ -12,26 +12,29 @@
 }
 
 /* Wrapper for the main book */
-/* Book wrapper grows with content */
 .book-wrapper {
+  position: relative;
   width: 100%;
   max-width: 1200px;
-  margin: 0 auto 5rem auto;
+  height: 550px; 
+  margin: 0 auto 5rem auto; 
   display: flex;
-  justify-content: center;
+  justify-content: center; 
   align-items: flex-start;
+  overflow: hidden; 
 }
-
 
 /* Book container */
 .book {
   display: flex;
   width: 100%;
+  height: 100%; /* fill the wrapper */
   background: #fdf6e3;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
   border-radius: 10px;
   border: 1px solid #d4b483;
-  overflow: visible; /* let pages grow */
-  flex-direction: row;
+  transform-style: preserve-3d;
+  flex-shrink: 0;
 }
 
 /* Pages */
@@ -44,8 +47,13 @@
     #fdf6e3 29px,
     #ccc 30px
   );
-  overflow: visible; /* single scroll */
-  min-height: 400px;
+  box-sizing: border-box;
+}
+
+.left-page,
+.right-page {
+  overflow-y: auto;   
+  max-height: 100%;
 }
 
 /* AI button */
@@ -58,6 +66,8 @@
   cursor: pointer;
   transition: all 0.2s ease;
   margin-top: 10px;
+  font-family: "Indie Flower", cursive;
+  font-size: 1rem;
 }
 
 .ai-button:hover:not(:disabled) {
@@ -75,7 +85,7 @@
   padding: 15px;
   border: 1px solid #d4b483;
   border-radius: 8px;
-  background-color: #f9f9f9;
+  background-color: #f9f9f97b;
   font-family: "Caveat", cursive;
 }
 

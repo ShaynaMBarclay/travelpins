@@ -97,7 +97,7 @@ function ChapterPage() {
     if (currentPage > 0) setCurrentPage(currentPage - 1);
   };
 
-  return (
+ return (
     <div className="country-page chapter-page">
       {showOverlay && (
         <div className={overlayClass}>
@@ -110,14 +110,16 @@ function ChapterPage() {
         <>
           <div className="book-wrapper">
             <div data-tour="chapter-book" className="book book-opening">
-              <div className="page">
+              {/* LEFT PAGE */}
+              <div className="page left-page">
                 <h2>{chapterSlug.charAt(0).toUpperCase() + chapterSlug.slice(1)}</h2>
                 {renderEntry(leftEntry, 0)}
               </div>
 
               <div className="spine"></div>
 
-              <div className="page">{renderEntry(rightEntry, 1)}</div>
+              {/* RIGHT PAGE */}
+              <div className="page right-page">{renderEntry(rightEntry, 1)}</div>
             </div>
           </div>
 
