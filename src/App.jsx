@@ -2,11 +2,16 @@
 import React from "react"
 import { Routes, Route, useNavigate, useLocation } from "react-router-dom"
 import { TourProvider, useTour } from "@reactour/tour"
+
+/*--COMPONENTS */
 import Globe from "./Globe"
 import ScrollToTop from "./Components/ScrollToTop"
 import CountryPage from "./Pages/CountryPage"
 import ChapterPage from "./Pages/ChapterPage"
+
+/*-- CSS */
 import "./Styles/App.css"
+import "./Styles/Tour.css"
 
 // Tour steps
 const steps = [
@@ -17,20 +22,22 @@ const steps = [
   },
   {
     selector: ".globe-canvas",
+    position: "center",
     content: "This is the globe. You can rotate and zoom to explore countries.",
   },
   {
     selector: ".globe-canvas",
-    position: "top",
+    position: "center",
     content:
       "Click the France pin to open its country page.\n(Hover a pin to see its country name.)",
     stepInteraction: true,
   },
   {
     selector: '[data-tour="country-book"]',
-    position: "left",
+    position: 'left',
     content:
-      "Here you’ll see categories of content for the selected country (eg. France).",
+      "Here you’ll see categories of content for the selected country (eg. France).\n\n"
+      + "\nIf the box showing the content is buggy, please quit the tour and reclick on startTour again.",
   },
   {
     selector: '[data-tour="chapter-food"]',
@@ -39,7 +46,6 @@ const steps = [
   },
   {
     selector: '[data-tour="chapter-book"]',
-    position: "right",
     content: "This is the chapter page, where you can read the details.",
   },
   {
@@ -50,7 +56,9 @@ const steps = [
 ]
 
 /**
- * Hook: wait until selector exists, then force Reactour to recalc
+ * Hook: wait until selector exists, then force Reactour to recalc 
+ * (sometimes, gotta quit tour and restart when selector is loaded in DOM)
+ * known bug in reactour
  */
 function useStepReady(steps, currentStep) {
   const { setCurrentStep } = useTour()
@@ -123,21 +131,21 @@ function TourController({ steps }) {
   const { isOpen, setIsOpen, currentStep, setCurrentStep } = useTour()
 
   return (
-    <div style={{ position: "fixed", bottom: 20, right: 20, zIndex: 9999 }}>
-      <button onClick={() => setIsOpen(true)}>🎓 Start Tour</button>
+    <div className="tour-div">
+      <button className="tour-start" onClick={() => setIsOpen(true)}>🎓 Start Tour</button>
 
       {isOpen && (
         <>
           <div>
             Step {currentStep + 1}/{steps.length}
           </div>
-          <button
+          <button className="tour-step"
             onClick={() => setCurrentStep(currentStep - 1)}
             disabled={currentStep === 0}
           >
             ⬅ Prev
           </button>
-          <button
+          <button className="tour-step"
             onClick={() => setCurrentStep(currentStep + 1)}
             disabled={currentStep === steps.length - 1}
           >
@@ -151,7 +159,11 @@ function TourController({ steps }) {
 
 export default function App() {
   return (
-    <TourProvider steps={steps} disableKeyboardNavigation>
+    <TourProvider
+      steps={steps}
+      disableKeyboardNavigation
+      popoverClassName="reactour__popover"
+    >
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<Globe />} />
