@@ -52,22 +52,22 @@
   transition: opacity 0.6s ease-in-out;
 }
 
-/* Mobile and tablet queries for book navigation 
+/* Mobile and tablet queries for book navigation */
 @media (max-width: 1280px) {
   .book-navigation {
-    gap: 16px;
+    gap: 10px !important;
   }
   .book-navigation button {
     padding: 9px 18px;
     font-size: 0.95rem;
   }
-} */
+} 
 
 
 @media (max-width: 768px) {
   .book-navigation {
-    flex-direction: column;
     gap: 12px;
+    flex-wrap: nowrap;
   }
   .book-navigation button {
     padding: 8px 14px;

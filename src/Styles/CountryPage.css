@@ -43,12 +43,13 @@
 .page {
   flex: 1;
   padding: 25px;
-  background: repeating-linear-gradient(
+    background-image: repeating-linear-gradient(
     to bottom,
-    #fdf6e3,
+    #fdf6e3 0px,
     #fdf6e3 29px,
     #ccc 30px
   );
+  background-size: 100% 30px;
   box-sizing: border-box;
   border-radius: 0;
   position: relative;
@@ -68,6 +69,7 @@
   overflow-y: auto;   
   border-bottom: 5px solid #d4b483; 
   position: relative;
+  
 }
 
 
@@ -274,17 +276,18 @@ body::-webkit-scrollbar-thumb:hover {
   background: #ffe49b;
 }
 
-/* Medium screens: tablets 
+/* Medium screens: tablets */
 @media (max-width: 1024px) {
   .book-wrapper {
     max-width: 900px;
-    height: 450px;
+    height: 900px;
   }
 
   .book {
     max-width: 900px;
     height: 100%;
     gap: 3px;
+    
   }
 
   .page {
@@ -292,9 +295,19 @@ body::-webkit-scrollbar-thumb:hover {
   }
 
   .item-card img {
-    max-width: 60%;
+    max-width: 90%;
   }
-} */
+  
+  .left-page,
+  .right-page {
+    background: repeating-linear-gradient(
+    to bottom,
+    #fdf6e3,
+    #fdf6e3 20px,
+    #ccc 25px
+  );
+  }
+} 
 
 /* Small screens: phones */
 @media (max-width: 768px) {
@@ -326,6 +339,11 @@ body::-webkit-scrollbar-thumb:hover {
   .right-page {
     max-height: 100%;
     overflow-y: auto;
+    background: repeating-linear-gradient(
+    to bottom,
+    #fdf6e3,
+    #fdf6e3 20px,
+    ) !important;
   }
 
   .item-card img {
