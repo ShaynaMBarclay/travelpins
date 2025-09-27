@@ -20,22 +20,6 @@
   background: #ffe49b;
 }
 
-.tour-step {
-    padding: 3px 6px;
-    border-radius: 8px;
-    border: 2px solid #d4b483;
-    background: #ffefc5;
-    cursor: pointer;
-    font-weight: bold;
-    transition: all 0.2s ease;
-    font-family: "Montez", cursive;
-    font-size: 1.9rem;
-}
-
-.tour-step:hover {
-  background: #ffe49b;
-}
-
 .reactour__popover {
     max-width: 40vw !important;
     padding: 24px 30px;
@@ -62,12 +46,6 @@
         font-size: 1.8rem;
     }
 
-
-    .tour-step {
-        padding: 8px 12px;
-        font-size: 1.35rem;
-    }
-
     .reactour__popover {
         max-width: 38vw !important;
     }
@@ -79,12 +57,6 @@
     .tour-start {
         padding: 8px 12px;
         font-size: 1.8rem;
-    }
-
-
-    .tour-step {
-        padding: 8px 12px;
-        font-size: 1.35rem;
     }
 
     .reactour__popover {
@@ -106,12 +78,6 @@
         font-size: 1.9rem;
     }
 
-
-    .tour-step {
-        padding: 8px 12px;
-        font-size: 1.45rem;
-    }
-
     .reactour__popover {
         max-width: 38vw !important;
     }
@@ -129,12 +95,6 @@
     .tour-start {
         padding: 8px 12px;
         font-size: 1.85rem;
-    }
-
-
-    .tour-step {
-        padding: 8px 12px;
-        font-size: 1.4rem;
     }
 
     .reactour__popover {

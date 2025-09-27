@@ -79,9 +79,14 @@ function GlobeScene() {
   return (
     <>
       <ambientLight intensity={0.6} />
+      <hemisphereLight
+        skyColor="#ffffff"   // top color (sky)
+        groundColor="#444477" // bottom color (earth shadow tone)
+        intensity={0.6}
+      />
       <directionalLight position={[5, 3, 5]} intensity={1.2} castShadow />
-      <directionalLight position={[-5, -2, -4]} intensity={0.6} color="#88aaff" />
-      <pointLight position={[0, 0, 6]} intensity={20} />
+      <directionalLight position={[-10, -2, -4]} intensity={0.6} color="#88aaff" />
+      <pointLight position={[0, 0, 6]} intensity={5} />
 
       <EarthWithPins
         spinning={spinning}
