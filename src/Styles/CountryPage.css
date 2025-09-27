@@ -81,7 +81,7 @@
   border: 2px solid #d4b483;
   background: #ffefc5;
   font-weight: bold;
-  cursor: pointer;
+  cursor: url('../assets/pointer.png'), auto;
   transition: all 0.2s ease;
   margin-top: 10px;
   font-family: "Indie Flower", cursive;
@@ -90,11 +90,12 @@
 
 .ai-button:hover:not(:disabled) {
   background: #ffe49b;
+  cursor: url('../assets/pointer.png'), auto;
 }
 
 .ai-button:disabled {
   opacity: 0.5;
-  cursor: default;
+  cursor: url('../assets/pointer.png'), auto;
 }
 
 /* AI response box */
@@ -110,32 +111,38 @@
 /* Custom scrollbar */
 .page::-webkit-scrollbar {
   width: 12px;
+  cursor: url('../assets/pointer.png'), auto;
 }
 
 .page::-webkit-scrollbar-track {
   background: #ffefc5;
   border-radius: 8px;
+  cursor: url('../assets/pointer.png'), auto;
 }
 
 .page::-webkit-scrollbar-thumb {
   background: #d4b483;
   border-radius: 8px;
   border: 2px solid #ffefc5;
+  cursor: url('../assets/pointer.png'), auto;
 }
 
 .page::-webkit-scrollbar-thumb:hover {
   background: #b88850;
+  cursor: url('../assets/pointer.png'), auto;
 }
 
 html::-webkit-scrollbar,
 body::-webkit-scrollbar {
   width: 12px;
+  cursor: url('../assets/pointer.png'), auto;
 }
 
 html::-webkit-scrollbar-track,
 body::-webkit-scrollbar-track {
   background: #ffefc5;
   border-radius: 8px;
+  cursor: url('../assets/pointer.png'), auto;
 }
 
 html::-webkit-scrollbar-thumb,
@@ -143,11 +150,13 @@ body::-webkit-scrollbar-thumb {
   background: #d4b483;
   border-radius: 8px;
   border: 2px solid #ffefc5;
+  cursor: url('../assets/pointer.png'), auto;
 }
 
 html::-webkit-scrollbar-thumb:hover,
 body::-webkit-scrollbar-thumb:hover {
   background: #b88850;
+  cursor: url('../assets/pointer.png'), auto;
 }
 
 /* Spine */
@@ -168,15 +177,20 @@ body::-webkit-scrollbar-thumb:hover {
   border-radius: 8px;
   border: 2px solid #d4b483;
   background: #ffefc5;
-  cursor: pointer;
+  cursor: url('../assets/pointer.png'), auto;
   font-weight: bold;
   transition: all 0.2s ease;
   font-family: "Montez", cursive;
   font-size: 2.5rem;
 }
 
+a {
+  cursor: url('../assets/pointer.png'), auto;
+}
+
 .chapter-list button:hover {
   background: #ffe49b;
+  cursor: url('../assets/pointer.png'), auto;
 }
 
 /* Item card styling */
@@ -221,17 +235,18 @@ body::-webkit-scrollbar-thumb:hover {
   border: 2px solid #d4b483;
   background: #ffefc5;
   font-weight: bold;
-  cursor: pointer;
+  cursor: url('../assets/pointer.png'), auto;
   transition: all 0.2s ease;
 }
 
 .book-navigation button:hover:not(:disabled) {
   background: #ffe49b;
+  cursor: url('../assets/pointer.png'), auto;
 }
 
 .book-navigation button:disabled {
   opacity: 0.5;
-  cursor: default;
+  cursor: url('../assets/pointer.png'), auto;
 }
 
 /* Fade-in animation for content */
@@ -269,11 +284,12 @@ body::-webkit-scrollbar-thumb:hover {
   text-decoration: none;
   color: #333;
   transition: all 0.2s ease;
-  
+  cursor: url('../assets/pointer.png'), auto;
 }
 
 .navigation-link:hover {
   background: #ffe49b;
+  cursor: url('../assets/pointer.png'), auto;
 }
 
 /* Medium screens: tablets */

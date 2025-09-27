@@ -11,6 +11,7 @@
   display: flex;
   justify-content: center; 
   align-items: center;    
+  cursor: url('../assets/cursor.png'), auto;
 }
 
 .book-closed-spine {
@@ -40,6 +41,7 @@
   font-size: 4rem;
   text-align: center;
   text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
+  cursor: url('../assets/cursor.png'), auto;
 }
 
 /* Closed book fade-in */
@@ -62,6 +64,7 @@
   transform: scaleX(0);
   transform-origin: center left;
   animation: bookOpenAnim 0.8s forwards ease-out;
+  cursor: url('../assets/cursor.png'), auto;
 }
 
 @keyframes bookOpenAnim {
