@@ -3,12 +3,17 @@ export const steps = [
   {
     selector: "html",
     position: "center",
-    content: "👋 Welcome! Let’s take a quick tour of how this works.",
+    content: "👋 Welcome! Let’s take a quick tour of how this works. \nUse the arrow on the tooltip or the keyboard to navigate through the onboarding.",
+  },
+  {
+    selector: "html",
+    position: "center",
+    content: "Great job navigating through this! Let's move to the next step :)",
   },
   {
     selector: ".globe-canvas",
     position: "center",
-    content: "This is the globe. You can rotate and zoom to explore countries.",
+    content: "This is the globe. Try moving your mouse to rotate and zoom to explore countries.\n It also works with pinching and moving your finger on mobile and tablet!",
   },
   {
     selector: ".globe-canvas",

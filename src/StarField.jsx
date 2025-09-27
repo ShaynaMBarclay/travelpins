@@ -28,7 +28,7 @@ function StarField({ count = 3000, radius = 250 }) {
   useFrame(({ clock }) => {
     if (matRef.current) {
       matRef.current.uTime = clock.getElapsedTime();
-      matRef.current.uCameraPos.copy(camera.position); // ✅ will now work
+      matRef.current.uCameraPos.copy(camera.position);
     }
 
     if (pointsRef.current) {

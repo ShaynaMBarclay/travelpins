@@ -3,7 +3,6 @@ import * as THREE from "three";
 import { shaderMaterial } from "@react-three/drei";
 import { extend } from "@react-three/fiber";
 
-// Custom shader: glowing Fresnel effect with pulse
 const PinMaterial = shaderMaterial(
   { uTime: 0, uColor: new THREE.Color("pink") },
 
@@ -43,7 +42,6 @@ const PinMaterial = shaderMaterial(
   `
 );
 
-// Make <pinMaterial /> available in JSX
 extend({ PinMaterial });
 
 export { PinMaterial };

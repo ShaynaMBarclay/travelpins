@@ -14,7 +14,6 @@ html, body {
   cursor: url('../assets/cursor.png'), auto;
 }
 
-/* Optional: make sure content scrolls over background */
 body {
   min-height: 100vh;
   overflow-x: hidden;

@@ -41,7 +41,7 @@
 
     void main() {
       vec2 uv = gl_PointCoord - 0.5;
-      // Discard pixels outside a circular region (makes the star round instead of square)
+      // Discard pixels outside a circular region (star round instead of square)
       if (length(uv) > 0.5) discard;
 
       // nearColor: warm tone for nearby stars
@@ -62,6 +62,6 @@
     `
   );
 
-  extend({ StarMaterial }); // 👈 makes <starMaterial /> available
+  extend({ StarMaterial });
 
   export { StarMaterial };

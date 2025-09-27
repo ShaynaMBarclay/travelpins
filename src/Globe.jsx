@@ -84,8 +84,8 @@ function GlobeScene() {
     <>
       <ambientLight intensity={0.6} />
       <hemisphereLight
-        skyColor="#ffffff"   // top color (sky)
-        groundColor="#444477" // bottom color (earth shadow tone)
+        skyColor="#ffffff"
+        groundColor="#444477"
         intensity={0.6}
       />
       <directionalLight position={[5, 3, 5]} intensity={1.2} castShadow />

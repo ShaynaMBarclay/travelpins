@@ -1,4 +1,3 @@
-/* Closed book overlay */
 .book-closed-overlay {
   position: absolute;
   top: 50%;
@@ -44,13 +43,11 @@
   cursor: url('../assets/cursor.png'), auto;
 }
 
-/* Closed book fade-in */
 @keyframes closedBookFadeIn {
   from { opacity: 0; transform: rotateY(-10deg); }
   to   { opacity: 1; transform: rotateY(0deg); }
 }
 
-/* Opening animation */
 .book-closed-overlay.opening .book-closed-front {
   animation: openBook 1s forwards;
 }
@@ -76,7 +73,6 @@
   }
 }
 
-/* Mobile and tablet queries for closed book overlay */
 @media (max-width: 1280px) {
   .book-closed-overlay {
     width: 450px;

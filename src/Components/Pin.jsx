@@ -15,8 +15,8 @@ const baseRadius = 2.05;
 function slugify(str) {
   return str
     .toLowerCase()
-    .replace(/\s+/g, "-")   // spaces → dashes
-    .replace(/[^\w-]+/g, ""); // remove special chars
+    .replace(/\s+/g, "-") 
+    .replace(/[^\w-]+/g, "");
 }
 
 function calculateLabelPosition(camera, normal, headLocalPos) {
@@ -58,7 +58,6 @@ function Pin({ highlighted, earthRef, lat, lng, name, onClick }) {
   // camera direction
   const labelPos = calculateLabelPosition(camera, normal, headLocalPos);      // slide sideways relative to camera
 
-  // ✅ hover handler now inside component (has closure access)
   const handleHoverPin = (ref, value) => (e) => {
     e.stopPropagation();
     if (value) {
@@ -79,7 +78,7 @@ function Pin({ highlighted, earthRef, lat, lng, name, onClick }) {
     const slug = slugify(name);
     navigate(`/country/${slug}`);
 
-    // 👇 On mobile, also toggle hover state to show label
+    // On mobile, toggle hover state to show label
     if ("ontouchstart" in window) {
       setHovered((prev) => !prev);
     }
