@@ -25,13 +25,17 @@
 }
 
 .submission-form.book-style button {
-  padding: 10px;
+  padding: 8px 16px;
   border-radius: 8px;
   border: 2px solid #d4b483;
   background: #ffefc5;
+  font-family: "Indie Flower", cursive;
   font-weight: bold;
+  font-size: 1rem;
   cursor: pointer;
   transition: all 0.2s ease;
+  width: fit-content;   
+  align-self: center; 
 }
 
 .submission-form.book-style button:hover {
