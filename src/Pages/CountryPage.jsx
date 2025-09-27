@@ -95,7 +95,7 @@ function CountryPage() {
     setLoadingFacts(false);
   };
 
-  return (
+   return (
     <div className="country-page">
       <div className="book-wrapper">
         {overlayVisible && (
@@ -121,26 +121,19 @@ function CountryPage() {
                 ))}
               </div>
 
-               <div style={{ marginTop: "20px" }}>
-                <button onClick={fetchFunFacts} disabled={loadingFacts}>
+              <div style={{ marginTop: "20px" }}>
+                <button
+                  className="ai-button"
+                  onClick={fetchFunFacts}
+                  disabled={loadingFacts}
+                >
                   {loadingFacts ? "Loading..." : "Get Fun Facts"}
                 </button>
 
                 {factsError && <p style={{ color: "red" }}>{factsError}</p>}
 
-                {/* Scrollable container for fun facts */}
                 {funFacts.length > 0 && (
-                  <div
-                    style={{
-                      marginTop: "10px",
-                      maxHeight: "200px",
-                      overflowY: "auto",
-                      padding: "10px",
-                      border: "1px solid #ccc",
-                      borderRadius: "5px",
-                      backgroundColor: "#f9f9f9",
-                    }}
-                  >
+                  <div className="ai-response">
                     <ul>
                       {funFacts.map((fact, index) => (
                         <li key={index}>{fact}</li>
@@ -149,7 +142,6 @@ function CountryPage() {
                   </div>
                 )}
               </div>
-              
             </div>
 
             <div className="spine"></div>
@@ -188,7 +180,6 @@ function CountryPage() {
                   />
                 </label>
 
-                {/* Custom file input button */}
                 <label className="custom-file-button">
                   {file ? "Change File" : "Add Image"}
                   <input
@@ -207,7 +198,6 @@ function CountryPage() {
         )}
       </div>
 
-      {/* Back to Globe button at the bottom */}
       <div style={{ marginTop: "30px", marginBottom: "50px" }}>
         <Link to="/" className="navigation-link">
           🌐 Back to Globe
