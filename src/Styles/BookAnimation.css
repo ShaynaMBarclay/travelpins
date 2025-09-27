@@ -72,3 +72,60 @@
     transform: scaleX(1);
   }
 }
+
+/* Mobile and tablet queries for closed book overlay */
+@media (max-width: 1280px) {
+  .book-closed-overlay {
+    width: 450px;
+    height: 400px;
+  }
+  .book-closed-front {
+    width: 380px;
+    font-size: 3.5rem;
+  }
+  .book-closed-spine {
+    width: 25px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .book-closed-overlay {
+    width: 400px;
+    height: 350px;
+  }
+  .book-closed-front {
+    width: 340px;
+    font-size: 3rem;
+  }
+  .book-closed-spine {
+    width: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .book-closed-overlay {
+    width: 300px;
+    height: 300px;
+  }
+  .book-closed-front {
+    width: 260px;
+    font-size: 2.2rem;
+  }
+  .book-closed-spine {
+    width: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .book-closed-overlay {
+    width: 220px;
+    height: 220px;
+  }
+  .book-closed-front {
+    width: 180px;
+    font-size: 1.8rem;
+  }
+  .book-closed-spine {
+    width: 12px;
+  }
+}

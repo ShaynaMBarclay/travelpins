@@ -28,13 +28,15 @@
 .book {
   display: flex;
   width: 100%;
-  height: 100%; /* fill the wrapper */
+  height: 100%;
   background: #fdf6e3;
   box-shadow: 0 10px 30px rgba(0,0,0,0.2);
   border-radius: 10px;
-  border: 1px solid #d4b483;
+  border: 2px solid #d4b483; 
   transform-style: preserve-3d;
   flex-shrink: 0;
+  overflow: hidden; 
+  gap: 4px; 
 }
 
 /* Pages */
@@ -48,13 +50,27 @@
     #ccc 30px
   );
   box-sizing: border-box;
+  border-radius: 0;
+  position: relative;
 }
 
 .left-page,
 .right-page {
+  flex: 1;
+  padding: 25px;
+  background: repeating-linear-gradient(
+    to bottom,
+    #fdf6e3,
+    #fdf6e3 29px,
+    #ccc 30px
+  );
+  box-sizing: border-box;
   overflow-y: auto;   
-  max-height: 100%;
+  border-bottom: 5px solid #d4b483; 
+  position: relative;
 }
+
+
 
 /* AI button */
 .ai-button {
@@ -258,13 +274,123 @@ body::-webkit-scrollbar-thumb:hover {
   background: #ffe49b;
 }
 
-/* Responsive scaling */
-@media (max-width: 1280px) { 
-  .book { max-width: 1000px; height: 500px; } 
+/* Medium screens: tablets 
+@media (max-width: 1024px) {
+  .book-wrapper {
+    max-width: 900px;
+    height: 450px;
+  }
+
+  .book {
+    max-width: 900px;
+    height: 100%;
+    gap: 3px;
+  }
+
+  .page {
+    padding: 20px;
+  }
+
+  .item-card img {
+    max-width: 60%;
+  }
+} */
+
+/* Small screens: phones */
+@media (max-width: 768px) {
+
+.country-page,
+.chapter-page {
+  margin: 20px auto !important;
+  padding: 10px;
+  
 }
-@media (max-width: 1024px) { 
-  .book { max-width: 900px; height: 450px; } 
+
+  .book-wrapper {
+    max-width: 100%;
+    height: 550px !important; 
+  }
+
+  .book {
+    flex-direction: row; 
+    height: 100%;
+    gap: 2px;
+  }
+
+  .page {
+    padding: 15px;
+    font-size: 1rem;
+  }
+
+  .left-page,
+  .right-page {
+    max-height: 100%;
+    overflow-y: auto;
+  }
+
+  .item-card img {
+    max-width: 90% !important;
+  }
+
+  .item-card {
+  padding: 8px;
 }
-@media (max-width: 768px) { 
-  .book { flex-direction: column; height: auto; } 
+
+.item-card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 5px;
+}
+
+.item-card p {
+  font-size: 1.1rem;
+  font-family: "Caveat", cursive;
+}
+
+  .ai-button {
+    padding: 4px;
+    font-size: 0.8rem !important;
+  }
+
+  .ai-response {
+  margin-top: 10px !important;
+  border: 1px solid #d4b483;
+  font-size: 0.9rem;
+}
+
+  .book-navigation {
+    flex-wrap: wrap;
+    gap: 1px !important;
+    margin-top: 5px !important; 
+    gap: 10px; 
+  }
+
+  .spine {
+    width: 4px;
+}
+
+.chapter-list button {
+  padding: 2px 9px !important;
+  font-size: 1.3rem;
+}
+}
+
+/* Extra small screens: very small phones */
+@media (max-width: 480px) {
+  .book-wrapper {
+    height: 350px;
+  }
+
+  .page {
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+
+  .item-card img {
+    max-width: 40%;
+  }
+
+  .ai-button {
+    width: 100%;
+    font-size: 0.85rem;
+  }
 }

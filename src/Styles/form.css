@@ -88,9 +88,69 @@
   background: #ffe49b;
 }
 
-/* Optional: display the selected file name */
 .file-name {
   margin-top: 6px;
   font-style: italic;
   font-size: 14px;
+}
+
+/* Mobile and tablet queries for submission form 
+@media (max-width: 1280px) {
+  .submission-form.book-style {
+    padding: 4px !important;
+  }
+  .submission-form.book-style button,
+  .custom-file-button {
+    padding: 8px 14px;
+    font-size: 0.95rem;
+  }
+}
+*/
+
+
+@media (max-width: 768px) {
+  .submission-form.book-style {
+    width: 90%;
+    padding: 6px !important;
+    gap: 6px;
+  }
+  .submission-form.book-style input,
+  .submission-form.book-style select,
+  .submission-form.book-style textarea {
+    font-size: 0.7rem !important;
+  }
+  .submission-form.book-style button {
+    width: 60%;
+    text-align: center;
+    font-size: 0.8rem;
+    padding: 5px !important;
+  }
+
+  .custom-file-button {
+    width: 50%;
+    padding: 2px !important;
+    font-size: 0.7rem !important;
+    margin-bottom: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .submission-form.book-style {
+    width: 95%;
+    padding: 8px;
+    gap: 5px;
+  }
+  .submission-form.book-style input,
+  .submission-form.book-style select,
+  .submission-form.book-style textarea {
+    font-size: 0.85rem;
+  }
+  .submission-form.book-style button,
+  .custom-file-button {
+    font-size: 0.85rem;
+    padding: 7px 10px;
+  }
+  .file-name {
+    font-size: 12px;
+  }
 }
