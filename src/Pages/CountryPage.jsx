@@ -164,9 +164,9 @@ function CountryPage() {
                     value={chapter}
                     onChange={(e) => setChapter(e.target.value)}
                   >
-                    <option value="views">Wonders</option>
-                    <option value="food">Feasts</option>
-                    <option value="activities">Quests</option>
+                    <option value="Wonders">Wonders</option>
+                    <option value="Feasts">Feasts</option>
+                    <option value="Quests">Quests</option>
                   </select>
                 </label>
 
