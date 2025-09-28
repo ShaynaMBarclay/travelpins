@@ -165,9 +165,9 @@
 @media (max-width: 768px) {
   .submission-form.book-style {
     width: 90%;
-    padding: 6px !important;
+    padding: 7px !important;
     gap: 20px !important;
-    height: 65% !important;
+    height: 70% !important;
   }
   .submission-form.book-style input,
   .submission-form.book-style select,
@@ -177,14 +177,16 @@
   }
 
 .submission-form.book-style textarea {
-  padding: 50px !important;
+  padding: 40px !important;
 }
 
   .submission-form.book-style button {
     width: 60%;
     text-align: center;
-    font-size: 0.8rem;
-    padding: 5px !important;
+    font-size: 0.6rem;
+    padding: 3px !important;
+    margin: 1rem;
+    
   }
 
   .custom-file-button {
