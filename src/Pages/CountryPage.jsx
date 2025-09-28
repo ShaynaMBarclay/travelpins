@@ -43,9 +43,9 @@ function CountryPage() {
   const countryName = story.name;
 
   const chapters = [
-    { name: "❗ Wonders", slug: "views" },
-    { name: "❗ Feasts", slug: "food" },
-    { name: "❗ Quests", slug: "activities" },
+    { name: "❗ Wonders", slug: "Wonders" },
+    { name: "❗ Feasts", slug: "feasts" },
+    { name: "❗ Quests", slug: "Quests" },
   ];
 
   const handleSubmit = async (e) => {
