@@ -55,7 +55,7 @@ function GlobeScene() {
   const [spinning, setSpinning] = useState(true);
 
   const { isOpen, currentStep } = useTour();
-  const highlight = isOpen && currentStep === 2;
+  const highlight = isOpen && currentStep === 3;
 
   useFrame(({ camera }) => {
     if (zooming && targetPos && controlsRef.current) {

@@ -6,7 +6,7 @@ import { useTour } from "@reactour/tour";
 function Atmosphere({ radius = 2 }) {
   const { isOpen, currentStep } = useTour();
 
-  const highlight = isOpen && currentStep === 1; 
+  const highlight = isOpen && currentStep === 2; 
 
   return (
     <mesh scale={1.05}>
