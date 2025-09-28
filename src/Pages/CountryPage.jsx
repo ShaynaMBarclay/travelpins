@@ -199,7 +199,7 @@ function CountryPage() {
                 </label>
                 {file && <span className="file-name">{file.name}</span>}
 
-                <button type="Send Forth">Mark Complete</button>
+                <button type="Send Forth">Deliver</button>
                 {submitted && <p className="success-message">Thy Deed Hath Been Recorded!</p>}
               </form>
             </div>
