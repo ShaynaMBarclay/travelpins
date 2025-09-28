@@ -75,8 +75,10 @@
 
 @media (max-width: 1280px) {
   .book-closed-overlay {
-    width: 450px;
-    height: 400px;
+  width: 90vw !important;
+  height: 50vh !important;
+  max-width: 500px;
+  max-height: 450px;
   }
   .book-closed-front {
     width: 380px;
@@ -87,25 +89,13 @@
   }
 }
 
-@media (max-width: 1024px) {
-  .book-closed-overlay {
-    width: 400px;
-    height: 350px;
-  }
-  .book-closed-front {
-    width: 340px;
-    font-size: 3rem;
-  }
-  .book-closed-spine {
-    width: 20px;
-  }
-}
-
 @media (max-width: 768px) {
   .book-closed-overlay {
-    width: 300px;
-    height: 300px;
-  }
+  width: 90vw !important;
+  height: 50vh !important;
+  max-width: 500px;
+  max-height: 450px;
+}
   .book-closed-front {
     width: 260px;
     font-size: 2.2rem;
