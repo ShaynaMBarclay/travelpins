@@ -123,7 +123,6 @@ function ChapterPage() {
           <div className="book-wrapper">
             <div data-tour="chapter-book" className="book book-opening">
               <div className="page left-page">
-                <h2>{chapterSlug.charAt(0).toUpperCase() + chapterSlug.slice(1)}</h2>
                 {renderEntry(leftEntry, 0)}
               </div>
 
@@ -135,13 +134,13 @@ function ChapterPage() {
 
           <div className="book-navigation">
             <button onClick={prevPage} disabled={currentPage === 0}>
-              ← Previous
+              ← Prior Tale
             </button>
             <span>
               Page {currentPage + 1} / {totalPages}
             </span>
             <button onClick={nextPage} disabled={currentPage === totalPages - 1}>
-              Next →
+              Turn the Page →
             </button>
           </div>
 
@@ -155,7 +154,7 @@ function ChapterPage() {
             }}
           >
             <Link to={`/country/${countrySlug}`} className="navigation-link">
-              ← Back to {countryName}
+              ← return to {countryName}
             </Link>
           </div>
         </>

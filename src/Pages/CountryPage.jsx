@@ -43,9 +43,9 @@ function CountryPage() {
   const countryName = story.name;
 
   const chapters = [
-    { name: "Views", slug: "views" },
-    { name: "Food", slug: "food" },
-    { name: "Activities", slug: "activities" },
+    { name: "❗ Wonders", slug: "views" },
+    { name: "❗ Feasts", slug: "food" },
+    { name: "❗ Quests", slug: "activities" },
   ];
 
   const handleSubmit = async (e) => {
@@ -136,7 +136,7 @@ function CountryPage() {
                   onClick={fetchFunFacts}
                   disabled={loadingFacts}
                 >
-                  {loadingFacts ? "Loading..." : `Get Fun Facts about ${countryName}`}
+                  {loadingFacts ? "Rolling the dice..." : `Roll for Facts about ${countryName}`}
                 </button>
 
                 {factsError && <p style={{ color: "red" }}>{factsError}</p>}
@@ -156,7 +156,7 @@ function CountryPage() {
             <div className="spine"></div>
 
             <div className="page right-page">
-              <h2>Submit Your Entry</h2>
+              <h2>Mark Your Journey</h2>
               <form onSubmit={handleSubmit} className="submission-form book-style">
                 <label>
                   Chapter:
@@ -164,14 +164,14 @@ function CountryPage() {
                     value={chapter}
                     onChange={(e) => setChapter(e.target.value)}
                   >
-                    <option value="views">Views</option>
-                    <option value="food">Food</option>
-                    <option value="activities">Activities</option>
+                    <option value="views">Wonders</option>
+                    <option value="food">Feasts</option>
+                    <option value="activities">Quests</option>
                   </select>
                 </label>
 
                 <label>
-                  Title:
+                  Tale Entry:
                   <input
                     type="text"
                     value={title}
@@ -181,7 +181,7 @@ function CountryPage() {
                 </label>
 
                 <label>
-                  Description:
+                  Share thy quest with the realm:
                   <textarea
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
@@ -190,7 +190,7 @@ function CountryPage() {
                 </label>
 
                 <label className="custom-file-button">
-                  {file ? "Change File" : "Add Image"}
+                  {file ? "Change File" : "Attach Illustration"}
                   <input
                     type="file"
                     onChange={(e) => setFile(e.target.files[0])}
@@ -199,8 +199,8 @@ function CountryPage() {
                 </label>
                 {file && <span className="file-name">{file.name}</span>}
 
-                <button type="submit">Submit</button>
-                {submitted && <p className="success-message">Submission sent!</p>}
+                <button type="Send Forth">Mark Complete</button>
+                {submitted && <p className="success-message">Thy Deed Hath Been Recorded!</p>}
               </form>
             </div>
           </div>
@@ -209,7 +209,7 @@ function CountryPage() {
 
       <div style={{ marginTop: "30px", marginBottom: "50px" }}>
         <Link to="/" className="navigation-link">
-          🌐 Back to Globe
+          🌐 Back to the Map
         </Link>
       </div>
     </div>

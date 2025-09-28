@@ -3,17 +3,17 @@ export const steps = [
   {
     selector: "html",
     position: "center",
-    content: "👋 Welcome! Let’s take a quick tour of how this works. \nUse the arrow on the tooltip or the keyboard to navigate through the onboarding.",
+    content: "👋 Welcome traveler! Let us embark on a brief tour of these lands. \nUse the arrow on the tooltip or the keyboard to navigate through the tutorial.",
   },
   {
     selector: "html",
     position: "center",
-    content: "Great job navigating through this! Let's move to the next step :)",
+    content: "Well done, brave traveler! Prepare now to venture onward to the next step!",
   },
   {
     selector: ".globe-canvas",
     position: "center",
-    content: "This is the globe. Try moving your mouse to rotate and zoom to explore countries.\n It also works with pinching and moving your finger on mobile and tablet!",
+    content: "This is the Earth, your home world. Try moving your mouse to rotate and zoom to explore countries.\n It also works with pinching and moving your finger on mobile and tablet!",
   },
   {
     selector: ".globe-canvas",
@@ -26,6 +26,6 @@ export const steps = [
   {
     selector: "body",
     position: "center",
-    content: "That's it for the tour! Click on the X to close this and enjoy the rest of the app!",
+    content: "Quest complete, adventurer! Click ✖ and continue thy quest.",
   },
 ];

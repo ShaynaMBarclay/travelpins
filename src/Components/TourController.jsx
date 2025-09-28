@@ -7,7 +7,7 @@ export default function TourController() {
   return (
     <div className="tour-div">
       <button className="tour-start" onClick={() => setIsOpen(true)}>
-        🎓 Start Tour
+      ❗Embark on the Quest
       </button>
     </div>
   );
