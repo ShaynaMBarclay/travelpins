@@ -27,7 +27,8 @@
 }
 
 .submission-form.book-style textarea {
-  padding: 30px !important;
+  width: 95%;      
+  height: 150px;
 }
 
 .submission-form.book-style button {
@@ -51,7 +52,7 @@
 }
 
 .success-message {
-  color: green;
+  color: rgb(151, 136, 0);
   font-weight: bold;
   margin-top: 8px;
 }
@@ -177,7 +178,8 @@
   }
 
 .submission-form.book-style textarea {
-  padding: 40px !important;
+  width: 85%;      
+  height: 115px;
 }
 
   .submission-form.book-style button {

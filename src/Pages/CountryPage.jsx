@@ -71,7 +71,7 @@ function CountryPage() {
     });
 
     setSubmitted(true);
-    setChapter("views");
+    setChapter("wonders");
     setTitle("");
     setDescription("");
     setFile(null);
