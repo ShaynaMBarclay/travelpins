@@ -8,7 +8,7 @@
 ## 📖 Project Overview
 
 **Pathfinder’s Tale** is a gamified storytelling platform where users can:
-- Explore a **3D interactive globe** with pins for 23+ countries.  
+- Explore a **3D interactive globe** with pins for 23 countries.  
 - Click a country’s pin to **open a book-like view**.  
 - Browse categories such as *Food*, *Activities* and *Views*.  
 - Open individual **chapters** with rich stories and media.  
