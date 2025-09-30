@@ -44,12 +44,20 @@ This makes Pathfinder’s Tale **scalable**: new countries and chapters can be a
 ---
 
 ## 📸 Screenshots
-To be added
+![globe](public/Screenshot%202025-09-30%20105159.png)
+![country_page_book](public/Screenshot%202025-09-30%20112143.png)
+![chapter_page_book](public/Screenshot%202025-09-30%20112211.png)
+![ai_integration_fun_fact](public/Screenshot%202025-09-30%20112323.png)
+![country_page_code](public/Screenshot%202025-09-30%20111825.png)
+![starfield](public/Screenshot%202025-09-30%20111848.png)
+![earthpins](public/Screenshot%202025-09-30%20111911.png)
 
 --- 
 
 ## 🎥 Demo
-To be added
+*Check this video to see the demo:*
+
+[![Video Title](https://img.youtube.com/vi/Y5BQz40pnNc/0.jpg)](https://www.youtube.com/watch?v=Y5BQz40pnNc)
 
 ---
 
